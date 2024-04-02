@@ -32,12 +32,42 @@ export function SolarSystem(){
         'sun': texLoader.load('./images/sun.jpg', function(){
             renderer.render(scene, camera)
         }),
+        'mercury': texLoader.load('./images/mercury.png', function(){
+            renderer.render(scene, camera)
+        }),
+        'venus': texLoader.load('./images/venus.png', function(){
+            renderer.render(scene, camera)
+        }),
         'earth': texLoader.load('./images/earth.jpg', function(){
             renderer.render(scene, camera)
         }),
         'moon': texLoader.load('./images/moon.jpg', function(){
             renderer.render(scene, camera)
-        })
+        }),
+        'mars': texLoader.load('./images/mars.png', function(){
+            renderer.render(scene, camera)
+        }),
+        'jupiter': texLoader.load('./images/jupiter.png', function(){
+            renderer.render(scene, camera)
+        }),
+        'saturn': texLoader.load('./images/saturn.png', function(){
+            renderer.render(scene, camera)
+        }),
+        'saturn_ring': texLoader.load('./images/saturn_ring.png', function(){
+            renderer.render(scene, camera)
+        }),
+        'uranus': texLoader.load('./images/uranus.png', function(){
+            renderer.render(scene, camera)
+        }),
+        'neptune': texLoader.load('./images/neptune.png', function(){
+            renderer.render(scene, camera)
+        }),
+        'pluto': texLoader.load('./images/pluto.png', function(){
+            renderer.render(scene, camera)
+        }),
+        'charon': texLoader.load('./images/charon_orbits_pluto.png', function(){
+            renderer.render(scene, camera)
+        }),
     }
 
     // Objects
