@@ -77,16 +77,22 @@ export function SolarSystem(){
     let earth_size = 20
     let moon_size = earth_size / 4
 
+    let sun_size = earth_size * 3
+
+    // rocky planets
     let mercury_size = earth_size / 3
+    let venus_size = earth_size * .95
+
 
     /// OBJECT DISTANCE VARIABLES ///
     let earth_radius_actual = 92.94
     let earth_radius = 500
 
     let mercury_radius = earth_radius * (34.51 / earth_radius_actual)
+    let venus_radius = earth_radius * (67.66 / earth_radius_actual)
 
     /********************** Objects **********************/
-    let sun = new THREE.Mesh(new THREE.SphereBufferGeometry(50, 40, 40), new THREE.MeshStandardMaterial())
+    let sun = new THREE.Mesh(new THREE.SphereBufferGeometry(sun_size, 40, 40), new THREE.MeshStandardMaterial())
     sun.name = 'sun'
     sun.material.map = textures[sun.name]
     scene.add(sun)
@@ -102,6 +108,18 @@ export function SolarSystem(){
     mercury.position.set(mercury_radius, 0, 0)
     mercury_CO.add(mercury)
     scene.add(mercury_CO)
+
+    /// VENUS OBJECTS ///
+    let venus_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshStandardMaterial())
+    venus_CO.name = 'obama'
+    venus_CO.material.map = textures[venus_CO.name]
+
+    let venus = new THREE.Mesh(new THREE.SphereBufferGeometry(venus_size, 40, 40), new THREE.MeshStandardMaterial())
+    venus.name = 'venus'
+    venus.material.map = textures[venus.name]
+    venus.position.set(venus_radius, 0, 0)
+    venus_CO.add(venus)
+    scene.add(venus_CO)
 
     /// EARTH OBJECTS ///
     let earth_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshStandardMaterial())
@@ -155,6 +173,8 @@ export function SolarSystem(){
     // other rocky planets
     let mercury_orbit = earth_rotation / 88
     let mercury_rotation = earth_rotation / 59
+    let venus_orbit = earth_rotation / 224.7
+    let venus_rotation = earth_rotation / 243
 
     function animate() {
         sun.rotation.y += .005 // sun is not connected to anything
@@ -167,6 +187,10 @@ export function SolarSystem(){
         // mercury
         mercury_CO.rotation.y += mercury_orbit
         mercury.rotation.y += mercury_rotation
+
+        // Venus
+        venus_CO.rotation.y += venus_orbit
+        venus.rotation.y += venus_rotation
 
         camera.lookAt(scene.position)
         renderer.render(scene, camera)
