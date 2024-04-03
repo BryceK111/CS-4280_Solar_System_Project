@@ -19,7 +19,7 @@ export function SolarSystem(){
     let canvas = document.querySelector('#webgl-scene')
     let scene = new THREE.Scene()
     let renderer = new THREE.WebGLRenderer({canvas})
-    let camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, .1, 1000)
+    let camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, .1, 10000)
 
     renderer.setSize(canvas.clientWidth, canvas.clientHeight)
     renderer.setClearColor(0x000000)
@@ -73,19 +73,45 @@ export function SolarSystem(){
         }),
     }
 
+    /// OBJECT SIZE VARIABLES ///
+    let earth_size = 20
+    let moon_size = earth_size / 4
+
+    let mercury_size = earth_size / 3
+
+    /// OBJECT DISTANCE VARIABLES ///
+    let earth_radius_actual = 92.94
+    let earth_radius = 500
+
+    let mercury_radius = earth_radius * (34.51 / earth_radius_actual)
+
     /********************** Objects **********************/
     let sun = new THREE.Mesh(new THREE.SphereBufferGeometry(50, 40, 40), new THREE.MeshStandardMaterial())
     sun.name = 'sun'
     sun.material.map = textures[sun.name]
+    scene.add(sun)
 
+    /// MERCURY OBJECTS ///
+    let mercury_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshStandardMaterial())
+    mercury_CO.name = 'obama'
+    mercury_CO.material.map = textures[mercury_CO.name]
+
+    let mercury = new THREE.Mesh(new THREE.SphereBufferGeometry(mercury_size, 40, 40), new THREE.MeshStandardMaterial())
+    mercury.name = 'mercury'
+    mercury.material.map = textures[mercury.name]
+    mercury.position.set(mercury_radius, 0, 0)
+    mercury_CO.add(mercury)
+    scene.add(mercury_CO)
+
+    /// EARTH OBJECTS ///
     let earth_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshStandardMaterial())
     earth_CO.name = 'obama'
     earth_CO.material.map = textures[earth_CO.name]
 
-    let earth = new THREE.Mesh(new THREE.SphereBufferGeometry(25, 40, 40), new THREE.MeshStandardMaterial())
+    let earth = new THREE.Mesh(new THREE.SphereBufferGeometry(earth_size, 40, 40), new THREE.MeshStandardMaterial())
     earth.name = 'earth'
     earth.material.map = textures[earth.name]
-    earth.position.set(150, 0, 0)
+    earth.position.set(earth_radius, 0, 0)
     earth_CO.add(earth)
 
     let moon_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshStandardMaterial())
@@ -94,13 +120,11 @@ export function SolarSystem(){
     moon_CO.position.set(earth.position.x,earth.position.y,earth.position.z)
     earth_CO.add(moon_CO)
 
-    let moon = new THREE.Mesh(new THREE.SphereBufferGeometry(10, 40, 40), new THREE.MeshStandardMaterial())
+    let moon = new THREE.Mesh(new THREE.SphereBufferGeometry(moon_size, 40, 40), new THREE.MeshStandardMaterial())
     moon.name = 'moon'
     moon.material.map = textures[moon.name]
     moon.position.set(40, 0, 0)
     moon_CO.add(moon)
-
-    scene.add(sun)
     scene.add(earth_CO)
 
     // Adding light sources
@@ -125,8 +149,12 @@ export function SolarSystem(){
 
     // earth and moon
     let earth_orbit = .0001
-    let earth_rotation = earth_orbit * 365.25
+    let earth_rotation = earth_orbit * 365.25 // number of days
     let moon_orbit = earth_rotation / 27.0
+
+    // other rocky planets
+    let mercury_orbit = earth_rotation / 88
+    let mercury_rotation = earth_rotation / 59
 
     function animate() {
         sun.rotation.y += .005 // sun is not connected to anything
@@ -135,6 +163,10 @@ export function SolarSystem(){
         earth_CO.rotation.y += earth_orbit // contains earth and moon
         earth.rotation.y += earth_rotation
         moon_CO.rotation.y += moon_orbit // contains moon
+
+        // mercury
+        mercury_CO.rotation.y += mercury_orbit
+        mercury.rotation.y += mercury_rotation
 
         camera.lookAt(scene.position)
         renderer.render(scene, camera)
