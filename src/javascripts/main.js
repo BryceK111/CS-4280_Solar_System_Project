@@ -47,6 +47,12 @@ export function SolarSystem(){
         'mars': texLoader.load('./images/mars.png', function(){
             renderer.render(scene, camera)
         }),
+        'phobos': texLoader.load('./images/phobos.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'deimos': texLoader.load('./images/deimos.jpg', function(){
+            renderer.render(scene, camera)
+        }),
         'jupiter': texLoader.load('./images/jupiter.png', function(){
             renderer.render(scene, camera)
         }),
@@ -82,6 +88,7 @@ export function SolarSystem(){
     // rocky planets
     let mercury_size = earth_size / 3
     let venus_size = earth_size * .95
+    let mars_size = earth_size / 2 // mars' moons are exceedingly small.
 
 
     /// OBJECT DISTANCE VARIABLES ///
@@ -90,6 +97,7 @@ export function SolarSystem(){
 
     let mercury_radius = earth_radius * (34.51 / earth_radius_actual)
     let venus_radius = earth_radius * (67.66 / earth_radius_actual)
+    let mars_radius = earth_radius * (142 / earth_radius_actual)
 
     /********************** Objects **********************/
     let sun = new THREE.Mesh(new THREE.SphereBufferGeometry(sun_size, 40, 40), new THREE.MeshStandardMaterial())
@@ -120,6 +128,18 @@ export function SolarSystem(){
     venus.position.set(venus_radius, 0, 0)
     venus_CO.add(venus)
     scene.add(venus_CO)
+
+    /// MARS OBJECTS ///
+    let mars_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshStandardMaterial())
+    mars_CO.name = 'obama'
+    mars_CO.material.map = textures[mars_CO.name]
+
+    let mars = new THREE.Mesh(new THREE.SphereBufferGeometry(mars_size, 40, 40), new THREE.MeshStandardMaterial())
+    mars.name = 'mars'
+    mars.material.map = textures[mars.name]
+    mars.position.set(mars_radius, 0, 0)
+    mars_CO.add(mars)
+    scene.add(mars_CO)
 
     /// EARTH OBJECTS ///
     let earth_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshStandardMaterial())
@@ -176,6 +196,13 @@ export function SolarSystem(){
     let venus_orbit = earth_rotation / 224.7
     let venus_rotation = earth_rotation / 243
 
+    // mars and its moons
+    let mars_orbit = earth_rotation / 687
+    let mars_rotation = earth_rotation * (24/24.6)
+    // may not implement
+    let phobos_orbit = earth_rotation * (24 / 7.6)
+    let deimos_orbit = earth_rotation * (24 / 30.25)
+
     function animate() {
         sun.rotation.y += .005 // sun is not connected to anything
 
@@ -191,6 +218,10 @@ export function SolarSystem(){
         // Venus
         venus_CO.rotation.y += venus_orbit
         venus.rotation.y += venus_rotation
+
+        //mars
+        mars_CO.rotation.y += mars_orbit
+        mars.rotation.y += mars_rotation
 
         camera.lookAt(scene.position)
         renderer.render(scene, camera)
