@@ -6,7 +6,7 @@ require.context('../stylesheets/', true, /\.(css|scss)$/i)
 import * as THREE from 'three'
 import * as dat from 'dat.gui'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
-import { sinusoidal, checkerboard, somePattern} from '../../../../../../Documents/GitHub/spring24_cs4280_inclass/src/javascripts/textures'
+import { sinusoidal, checkerboard, somePattern} from './textures'
 import { MTLLoader, OBJLoader} from 'three-obj-mtl-loader' // material and object loaders
 
 // First: Set up your name
