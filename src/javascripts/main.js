@@ -19,7 +19,7 @@ export function SolarSystem(){
     let canvas = document.querySelector('#webgl-scene')
     let scene = new THREE.Scene()
     let renderer = new THREE.WebGLRenderer({canvas})
-    let camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, .1, 10000)
+    let camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, .1, 100000)
 
     renderer.setSize(canvas.clientWidth, canvas.clientHeight)
     renderer.setClearColor(0x000000)
@@ -62,7 +62,7 @@ export function SolarSystem(){
         'saturn_ring': texLoader.load('./images/saturn_ring.png', function(){
             renderer.render(scene, camera)
         }),
-        'uranus': texLoader.load('./images/uranus.png', function(){
+        'yourAnus': texLoader.load('./images/uranus.png', function(){
             renderer.render(scene, camera)
         }),
         'neptune': texLoader.load('./images/neptune.png', function(){
@@ -83,30 +83,42 @@ export function SolarSystem(){
     let earth_size = 20
     let moon_size = earth_size / 4
 
-    let sun_size = earth_size * 3
+    let sun_size = earth_size * 20
 
     // rocky planets
     let mercury_size = earth_size / 3
     let venus_size = earth_size * .95
     let mars_size = earth_size / 2 // mars' moons are exceedingly small.
 
+    // gassy planets (ate too many beans)
+    let jupiter_size = earth_size*11;
+    let saturn_size = earth_size*9;
+    let yourAnus_size = earth_size*4;
+    let neptune_size = earth_size*4;
+    let pluto_size = earth_size*4;
+
 
     /// OBJECT DISTANCE VARIABLES ///
-    let earth_radius_actual = 92.94
-    let earth_radius = 500
+    let earth_radius_actual = 92.94 // in millions of miles
+    let earth_radius = 1500
 
     let mercury_radius = earth_radius * (34.51 / earth_radius_actual)
     let venus_radius = earth_radius * (67.66 / earth_radius_actual)
     let mars_radius = earth_radius * (142 / earth_radius_actual)
 
+    let jupiter_radius = earth_radius * (484 / earth_radius_actual)
+    let saturn_radius = earth_radius * (886 / earth_radius_actual)
+    let yourAnus_radius = earth_radius * (1300 / earth_radius_actual)
+    let neptune_radius = earth_radius * (2778 / earth_radius_actual)
+    let pluto_radius = earth_radius * (3700 / earth_radius_actual)
     /********************** Objects **********************/
-    let sun = new THREE.Mesh(new THREE.SphereBufferGeometry(sun_size, 40, 40), new THREE.MeshStandardMaterial())
+    let sun = new THREE.Mesh(new THREE.SphereBufferGeometry(sun_size, 40, 40), new THREE.MeshBasicMaterial())
     sun.name = 'sun'
     sun.material.map = textures[sun.name]
     scene.add(sun)
 
     /// MERCURY OBJECTS ///
-    let mercury_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshStandardMaterial())
+    let mercury_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     mercury_CO.name = 'obama'
     mercury_CO.material.map = textures[mercury_CO.name]
 
@@ -118,7 +130,7 @@ export function SolarSystem(){
     scene.add(mercury_CO)
 
     /// VENUS OBJECTS ///
-    let venus_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshStandardMaterial())
+    let venus_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     venus_CO.name = 'obama'
     venus_CO.material.map = textures[venus_CO.name]
 
@@ -129,20 +141,8 @@ export function SolarSystem(){
     venus_CO.add(venus)
     scene.add(venus_CO)
 
-    /// MARS OBJECTS ///
-    let mars_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshStandardMaterial())
-    mars_CO.name = 'obama'
-    mars_CO.material.map = textures[mars_CO.name]
-
-    let mars = new THREE.Mesh(new THREE.SphereBufferGeometry(mars_size, 40, 40), new THREE.MeshStandardMaterial())
-    mars.name = 'mars'
-    mars.material.map = textures[mars.name]
-    mars.position.set(mars_radius, 0, 0)
-    mars_CO.add(mars)
-    scene.add(mars_CO)
-
     /// EARTH OBJECTS ///
-    let earth_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshStandardMaterial())
+    let earth_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     earth_CO.name = 'obama'
     earth_CO.material.map = textures[earth_CO.name]
 
@@ -152,7 +152,7 @@ export function SolarSystem(){
     earth.position.set(earth_radius, 0, 0)
     earth_CO.add(earth)
 
-    let moon_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshStandardMaterial())
+    let moon_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     moon_CO.name = 'obama'
     moon_CO.material.map = textures[moon_CO.name]
     moon_CO.position.set(earth.position.x,earth.position.y,earth.position.z)
@@ -165,15 +165,87 @@ export function SolarSystem(){
     moon_CO.add(moon)
     scene.add(earth_CO)
 
+    /// MARS OBJECTS ///
+    let mars_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    mars_CO.name = 'obama'
+    mars_CO.material.map = textures[mars_CO.name]
+
+    let mars = new THREE.Mesh(new THREE.SphereBufferGeometry(mars_size, 40, 40), new THREE.MeshStandardMaterial())
+    mars.name = 'mars'
+    mars.material.map = textures[mars.name]
+    mars.position.set(mars_radius, 0, 0)
+    mars_CO.add(mars)
+    scene.add(mars_CO)
+
+    /// JUPITER OBJECTS ///
+    let jupiter_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    jupiter_CO.name = 'obama'
+    jupiter_CO.material.map = textures[jupiter_CO.name]
+
+    let jupiter = new THREE.Mesh(new THREE.SphereBufferGeometry(jupiter_size, 40, 40), new THREE.MeshStandardMaterial())
+    jupiter.name = 'jupiter'
+    jupiter.material.map = textures[jupiter.name]
+    jupiter.position.set(jupiter_radius, 0, 0)
+    jupiter_CO.add(jupiter)
+    scene.add(jupiter_CO)
+
+    /// SATURN OBJECTS ///
+    let saturn_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    saturn_CO.name = 'obama'
+    saturn_CO.material.map = textures[saturn_CO.name]
+
+    let saturn = new THREE.Mesh(new THREE.SphereBufferGeometry(saturn_size, 40, 40), new THREE.MeshStandardMaterial())
+    saturn.name = 'saturn'
+    saturn.material.map = textures[saturn.name]
+    saturn.position.set(saturn_radius, 0, 0)
+    saturn_CO.add(saturn)
+    scene.add(saturn_CO)
+
+    /// URANUS OBJECTS ///
+    let yourAnus_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    yourAnus_CO.name = 'obama'
+    yourAnus_CO.material.map = textures[yourAnus_CO.name]
+
+    let yourAnus = new THREE.Mesh(new THREE.SphereBufferGeometry(yourAnus_size, 40, 40), new THREE.MeshStandardMaterial())
+    yourAnus.name = 'yourAnus'
+    yourAnus.material.map = textures[yourAnus.name]
+    yourAnus.position.set(yourAnus_radius, 0, 0)
+    yourAnus_CO.add(yourAnus)
+    scene.add(yourAnus_CO)
+
+    /// NEPTUNE OBJECTS ///
+    let neptune_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    neptune_CO.name = 'obama'
+    neptune_CO.material.map = textures[neptune_CO.name]
+
+    let neptune = new THREE.Mesh(new THREE.SphereBufferGeometry(neptune_size, 40, 40), new THREE.MeshStandardMaterial())
+    neptune.name = 'neptune'
+    neptune.material.map = textures[neptune.name]
+    neptune.position.set(neptune_radius, 0, 0)
+    neptune_CO.add(neptune)
+    scene.add(neptune_CO)
+
+    /// PLUTO OBJECTS ///
+    let pluto_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    pluto_CO.name = 'obama'
+    pluto_CO.material.map = textures[pluto_CO.name]
+
+    let pluto= new THREE.Mesh(new THREE.BoxBufferGeometry(.1, neptune_size*100, neptune_size*100), new THREE.MeshStandardMaterial)
+    pluto.name = 'pluto'
+    pluto.material.map = textures[pluto.name]
+    pluto.position.set(pluto_radius, 0, 0)
+    pluto_CO.add(pluto)
+    scene.add(pluto_CO)
+
     // Adding light sources
-    let ambientLight = new THREE.AmbientLight(0x333333)
-    let directionalLight = new THREE.DirectionalLight(0x777777)
-    let pointLight = new THREE.PointLight(0x999999)
-    pointLight.position.set(0, 300, 0)
+    let ambientLight = new THREE.AmbientLight(0x444444)
+    //let directionalLight = new THREE.DirectionalLight(0x777777)
+    let pointLight = new THREE.PointLight(0xBBBBBB)
+    pointLight.position.set(0, 0, 0)
 
 
     scene.add(ambientLight)
-    scene.add(directionalLight)
+    //scene.add(directionalLight)
     scene.add(pointLight)
 
     let cameraControls = new OrbitControls(camera, renderer.domElement)
@@ -190,6 +262,8 @@ export function SolarSystem(){
     let earth_rotation = earth_orbit * 365.25 // number of days
     let moon_orbit = earth_rotation / 27.0
 
+    let sun_rotation = earth_rotation / 27.0
+
     // other rocky planets
     let mercury_orbit = earth_rotation / 88
     let mercury_rotation = earth_rotation / 59
@@ -203,8 +277,28 @@ export function SolarSystem(){
     let phobos_orbit = earth_rotation * (24 / 7.6)
     let deimos_orbit = earth_rotation * (24 / 30.25)
 
+    // jupiter and its moons
+    let jupiter_orbit = earth_rotation / 4333.0
+    let jupiter_rotation = earth_rotation * (24 / 10)
+
+    //saturn and its onion rings
+    let saturn_orbit = earth_rotation / 10756.0
+    let saturn_rotation = earth_rotation * (24 / 10.7)
+
+    // yourAnus and your moms
+    let yourAnus_orbit = earth_rotation / 30687.0
+    let yourAnus_rotation = earth_rotation * (24 / 17)
+
+    // neptune and its moons
+    let neptune_orbit = earth_rotation / 60190.0
+    let neptune_rotation = earth_rotation * (24 / 16)
+
+    // pluto and its moons
+    let pluto_orbit = earth_rotation / 90560.0
+    let pluto_rotation = earth_rotation * (24 / 16)
+
     function animate() {
-        sun.rotation.y += .005 // sun is not connected to anything
+        sun.rotation.y += sun_rotation // sun is not connected to anything
 
         // Earth rotations
         earth_CO.rotation.y += earth_orbit // contains earth and moon
@@ -223,6 +317,26 @@ export function SolarSystem(){
         mars_CO.rotation.y += mars_orbit
         mars.rotation.y += mars_rotation
 
+        //jupiter
+        jupiter_CO.rotation.y += jupiter_orbit
+        jupiter.rotation.y += jupiter_rotation
+
+        //saturn
+        saturn_CO.rotation.y += saturn_orbit
+        saturn.rotation.y += saturn_rotation
+
+        //yourAnus
+        yourAnus_CO.rotation.y += yourAnus_orbit
+        yourAnus.rotation.y += yourAnus_rotation
+
+        //neptune
+        neptune_CO.rotation.y += neptune_orbit
+        neptune.rotation.y += neptune_rotation
+
+        //pluto
+        pluto_CO.rotation.y += pluto_orbit
+        //pluto.rotation.y += pluto_rotation
+
         camera.lookAt(scene.position)
         renderer.render(scene, camera)
         cameraControls.update()
@@ -232,281 +346,5 @@ export function SolarSystem(){
 
     animate()
 }
-export function displayScene(){
-    let canvas = document.querySelector('#webgl-scene')
-    let scene = new THREE.Scene()
-    let renderer = new THREE.WebGLRenderer({canvas})
-    let camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, .1, 1000)
-
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight)
-    renderer.setClearColor(0xEEEEEE)
-
-    let axes = new THREE.AxesHelper(10)
-    scene.add(axes)
-
-    // Loading textures
-    let texLoader = new THREE.TextureLoader()
-    let textures = {
-        earth: texLoader.load('./images/obama.jpg', function(){
-            renderer.render(scene, camera)
-        }),
-        ball: texLoader.load('./images/balldimpled.png', function(){
-            renderer.render(scene, camera)
-        }),
-        cone: texLoader.load('./images/cone.jpg', function(){
-            renderer.render(scene, camera)
-        }),
-        torus: texLoader.load('./images/donut.jpg', function(){
-            renderer.render(scene, camera)
-        }),
-        table: texLoader.load('./images/floor.jpg', function(){
-            renderer.render(scene, camera)
-        }),
-        floor: texLoader.load('./images/Kitchen_Floor_Tile.jpg', function(texture){
-            texture.wrapS = THREE.RepeatWrapping
-            texture.wrapT = THREE.RepeatWrapping
-            texture.repeat.set(6,5)
-            renderer.render(scene, camera)
-        }),
-        wall0: texLoader.load('./images/stone.jpg', function(texture){
-            texture.wrapS = THREE.RepeatWrapping
-            texture.wrapT = THREE.RepeatWrapping
-            texture.repeat.set(4,2)
-            renderer.render(scene, camera)
-        }),
-        wall1: texLoader.load('./images/wall.jpg', function(texture){
-            texture.wrapS = THREE.RepeatWrapping
-            texture.wrapT = THREE.RepeatWrapping
-            texture.repeat.set(2,2)
-            renderer.render(scene, camera)
-        }),
-        red: texLoader.load('./images/Red_side.png', function(){
-            renderer.render(scene, camera)
-        }),
-        blue: texLoader.load('./images/Blue_side.png', function(){
-            renderer.render(scene, camera)
-        }),
-        green: texLoader.load('./images/Green_side.png', function(){
-            renderer.render(scene, camera)
-        }),
-        yellow: texLoader.load('./images/Yellow_side.png', function(){
-            renderer.render(scene, camera)
-        }),
-        orange: texLoader.load('./images/Orange_side.png', function(){
-            renderer.render(scene, camera)
-        }),
-        white: texLoader.load('./images/White_Side.png', function(){
-            renderer.render(scene, camera)
-        }),
-        sinusoidal: sinusoidal(256, 256),
-        checkerboard: checkerboard(512, 512),
-        somePattern: somePattern(128, 128)
-    }
-
-    let cameraControls = new OrbitControls(camera, renderer.domElement)
-    cameraControls.addEventListener("change", function(){
-        renderer.render(scene, camera)
-    })
-
-    // Adding the floor
-    let geometry = new THREE.PlaneGeometry(500, 300)
-    let plane = new THREE.Mesh(geometry)
-    plane.materialParams = { side: THREE.DoubleSide }
-    plane.rotateX(Math.PI / 2)
-    plane.name = 'floor'
-    scene.add(plane)
-    plane.material = new THREE.MeshPhongMaterial(plane.materialParams)
-    plane.material.map = textures[plane.name]
-
-    // Adding walls
-    geometry = new THREE.PlaneGeometry(500, 300)
-    let wall0 = new THREE.Mesh(geometry)
-    wall0.materialParams = { side: THREE.DoubleSide }
-    wall0.position.set(0,150,150)
-    wall0.name = 'wall0'
-    scene.add(wall0)
-    wall0.material = new THREE.MeshPhongMaterial(wall0.materialParams)
-    wall0.material.map = textures[wall0.name]
-
-    geometry = new THREE.PlaneGeometry(300, 300)
-    let wall1 = new THREE.Mesh(geometry)
-    wall1.materialParams = { side: THREE.DoubleSide }
-    wall1.position.set(250,150,0)
-    wall1.rotateY(Math.PI/2)
-    wall1.name = 'wall1'
-    scene.add(wall1)
-    wall1.material = new THREE.MeshPhongMaterial(wall1.materialParams)
-    wall1.material.map = textures[wall1.name]
-
-    geometry = new THREE.PlaneGeometry(300, 300)
-    let wall2 = new THREE.Mesh(geometry)
-    wall2.materialParams = { side: THREE.DoubleSide }
-    wall2.position.set(-250,150,0)
-    wall2.rotateY(Math.PI/2)
-    wall2.name = 'wall1'
-    scene.add(wall2)
-    wall2.material = new THREE.MeshPhongMaterial(wall2.materialParams)
-    wall2.material.map = textures[wall2.name]
-
-
-    // Adding a table
-    geometry = new THREE.BoxGeometry(150, 5, 100)
-    let table = new THREE.Mesh(geometry)
-    table.materialParams = {}
-    table.name = 'table'
-    table.position.set(0, 50, 0)
-    scene.add(table)
-    table.material = new THREE.MeshPhongMaterial(table.materialParams)
-    table.material.map = textures[table.name]
-
-    geometry = new THREE.BoxGeometry(10, 50, 10)
-    let leg0 = new THREE.Mesh(geometry)
-    leg0.materialParams = {}
-    leg0.name = 'table'
-    leg0.position.set(60, 25, 40)
-    scene.add(leg0)
-    leg0.material = new THREE.MeshPhongMaterial(table.materialParams)
-    leg0.material.map = textures[leg0.name]
-
-    geometry = new THREE.BoxGeometry(10, 50, 10)
-    let leg1 = new THREE.Mesh(geometry)
-    leg1.materialParams = {}
-    leg1.name = 'table'
-    leg1.position.set(60, 25, -40)
-    scene.add(leg1)
-    leg1.material = new THREE.MeshPhongMaterial(table.materialParams)
-    leg1.material.map = textures[leg1.name]
-
-    geometry = new THREE.BoxGeometry(10, 50, 10)
-    let leg2 = new THREE.Mesh(geometry)
-    leg2.materialParams = {}
-    leg2.name = 'table'
-    leg2.position.set(-60, 25, -40)
-    scene.add(leg2)
-    leg2.material = new THREE.MeshPhongMaterial(table.materialParams)
-    leg2.material.map = textures[leg2.name]
-
-
-    let leg3 = new THREE.Mesh(geometry)
-    leg3.materialParams = {}
-    leg3.name = 'table'
-    leg3.position.set(-60, 25, 40)
-    scene.add(leg3)
-    leg3.material = new THREE.MeshPhongMaterial(table.materialParams)
-    leg3.material.map = textures[leg3.name]
-
-    //Adding basket Ball
-    geometry = new THREE.SphereGeometry(15, 40, 40)
-    let ball = new THREE.Mesh(geometry)
-    ball.materialParams = {}
-    ball.name = 'ball'
-    ball.position.set(30, 15, -13)
-    ball.rotateX(-Math.PI/4)
-    ball.rotateY(Math.PI/5)
-    ball.rotateZ(Math.PI/6)
-    scene.add(ball)
-    ball.material = new THREE.MeshPhongMaterial(ball.materialParams)
-    ball.material.map = textures[ball.name]
-
-    //Adding Birthday cone
-    geometry = new THREE.ConeGeometry(10, 20, 40)
-    let cone = new THREE.Mesh(geometry)
-    cone.materialParams = {}
-    cone.name = 'cone'
-    cone.position.set(-25, 62.5, -30)
-    scene.add(cone)
-    cone.material = new THREE.MeshPhongMaterial(cone.materialParams)
-    cone.material.map = textures[cone.name]
-
-    // Adding donut
-    geometry = new THREE.TorusGeometry(5, 2.5, 40,40)
-    let torus = new THREE.Mesh(geometry)
-    torus.materialParams = {}
-    torus.name = 'torus'
-    torus.position.set(-60, 55, 30)
-    torus.rotateX(Math.PI/2)
-    scene.add(torus)
-    torus.material = new THREE.MeshPhongMaterial(torus.materialParams)
-    torus.material.map = textures[torus.name]
-
-    // Adding Rubik's cube
-    let posx = 25
-    let posy = 57.5
-    let posz = 0
-    geometry = new THREE.PlaneGeometry(10, 10)
-    let side0 = new THREE.Mesh(geometry)
-    side0.materialParams = { side: THREE.DoubleSide }
-    side0.position.set(posx + 5,posy,posz)
-    side0.rotateY(Math.PI/2)
-    side0.name = 'red'
-    scene.add(side0)
-    side0.material = new THREE.MeshPhongMaterial(side0.materialParams)
-    side0.material.map = textures[side0.name]
-
-    let side1 = new THREE.Mesh(geometry)
-    side1.materialParams = { side: THREE.DoubleSide }
-    side1.position.set(posx - 5,posy,posz)
-    side1.rotateY(Math.PI/2)
-    side1.name = 'yellow'
-    scene.add(side1)
-    side1.material = new THREE.MeshPhongMaterial(side1.materialParams)
-    side1.material.map = textures[side1.name]
-
-    let side2 = new THREE.Mesh(geometry)
-    side2.materialParams = { side: THREE.DoubleSide }
-    side2.position.set(posx,posy,posz + 5)
-    side2.name = 'green'
-    scene.add(side2)
-    side2.material = new THREE.MeshPhongMaterial(side2.materialParams)
-    side2.material.map = textures[side2.name]
-
-    let side3 = new THREE.Mesh(geometry)
-    side3.materialParams = { side: THREE.DoubleSide }
-    side3.position.set(posx,posy,posz - 5)
-    side3.name = 'blue'
-    scene.add(side3)
-    side3.material = new THREE.MeshPhongMaterial(side3.materialParams)
-    side3.material.map = textures[side3.name]
-
-    let side4 = new THREE.Mesh(geometry)
-    side4.materialParams = { side: THREE.DoubleSide }
-    side4.position.set(posx,posy + 5,posz)
-    side4.rotateX(Math.PI/2)
-    side4.name = 'white'
-    scene.add(side4)
-    side4.material = new THREE.MeshPhongMaterial(side4.materialParams)
-    side4.material.map = textures[side4.name]
-
-    //Adding google obama
-    geometry = new THREE.SphereGeometry(50, 40, 40)
-    let sphere = new THREE.Mesh(geometry)
-    sphere.materialParams = {}
-    sphere.name = 'earth'
-    sphere.position.set(0, 50, 201)
-    sphere.rotateY(-Math.PI/2)
-    scene.add(sphere)
-    sphere.material = new THREE.MeshStandardMaterial(sphere.materialParams)
-    sphere.material.map = textures[sphere.name]
-
-    // Adding light sources
-    let ambientLight = new THREE.AmbientLight(0x777777) // black
-    let directionalLight = new THREE.DirectionalLight(0x777777) // Gray
-    let pointLight = new THREE.PointLight(0x888888) // Light gray
-    pointLight.position.set(0, 200, 0)
-    scene.add(ambientLight)
-    scene.add(directionalLight)
-    scene.add(pointLight)
-
-    camera.position.set(-200, 400, -200)
-
-    function animate() {
-        camera.lookAt(scene.position)
-        renderer.render(scene, camera)
-        cameraControls.update()
-    }
-
-    animate()
-}
-
 //displayScene()
 SolarSystem()
