@@ -25,7 +25,6 @@ export function SolarSystem(){
     renderer.setClearColor(0x000000)
 
     let axes = new THREE.AxesHelper(10)
-    scene.add(axes)
 
     let texLoader = new THREE.TextureLoader()
     let textures = {
@@ -101,6 +100,7 @@ export function SolarSystem(){
     /// OBJECT DISTANCE VARIABLES ///
     let earth_radius_actual = 92.94 // in millions of miles
     let earth_radius = 1500
+    let moon_radius = earth_radius * (.2389 / earth_radius_actual)
 
     let mercury_radius = earth_radius * (34.51 / earth_radius_actual)
     let venus_radius = earth_radius * (67.66 / earth_radius_actual)
@@ -115,7 +115,7 @@ export function SolarSystem(){
     let sun = new THREE.Mesh(new THREE.SphereBufferGeometry(sun_size, 40, 40), new THREE.MeshBasicMaterial())
     sun.name = 'sun'
     sun.material.map = textures[sun.name]
-    scene.add(sun)
+    axes.add(sun)
 
     /// MERCURY OBJECTS ///
     let mercury_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -127,7 +127,7 @@ export function SolarSystem(){
     mercury.material.map = textures[mercury.name]
     mercury.position.set(mercury_radius, 0, 0)
     mercury_CO.add(mercury)
-    scene.add(mercury_CO)
+    axes.add(mercury_CO)
 
     /// VENUS OBJECTS ///
     let venus_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -139,7 +139,7 @@ export function SolarSystem(){
     venus.material.map = textures[venus.name]
     venus.position.set(venus_radius, 0, 0)
     venus_CO.add(venus)
-    scene.add(venus_CO)
+    axes.add(venus_CO)
 
     /// EARTH OBJECTS ///
     let earth_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -162,8 +162,9 @@ export function SolarSystem(){
     moon.name = 'moon'
     moon.material.map = textures[moon.name]
     moon.position.set(40, 0, 0)
+    moon.rotation.y = Math.PI // moon faces earth
     moon_CO.add(moon)
-    scene.add(earth_CO)
+    axes.add(earth_CO)
 
     /// MARS OBJECTS ///
     let mars_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -175,7 +176,7 @@ export function SolarSystem(){
     mars.material.map = textures[mars.name]
     mars.position.set(mars_radius, 0, 0)
     mars_CO.add(mars)
-    scene.add(mars_CO)
+    axes.add(mars_CO)
 
     /// JUPITER OBJECTS ///
     let jupiter_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -187,7 +188,7 @@ export function SolarSystem(){
     jupiter.material.map = textures[jupiter.name]
     jupiter.position.set(jupiter_radius, 0, 0)
     jupiter_CO.add(jupiter)
-    scene.add(jupiter_CO)
+    axes.add(jupiter_CO)
 
     /// SATURN OBJECTS ///
     let saturn_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -199,7 +200,7 @@ export function SolarSystem(){
     saturn.material.map = textures[saturn.name]
     saturn.position.set(saturn_radius, 0, 0)
     saturn_CO.add(saturn)
-    scene.add(saturn_CO)
+    axes.add(saturn_CO)
 
     /// URANUS OBJECTS ///
     let yourAnus_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -211,7 +212,7 @@ export function SolarSystem(){
     yourAnus.material.map = textures[yourAnus.name]
     yourAnus.position.set(yourAnus_radius, 0, 0)
     yourAnus_CO.add(yourAnus)
-    scene.add(yourAnus_CO)
+    axes.add(yourAnus_CO)
 
     /// NEPTUNE OBJECTS ///
     let neptune_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -223,7 +224,7 @@ export function SolarSystem(){
     neptune.material.map = textures[neptune.name]
     neptune.position.set(neptune_radius, 0, 0)
     neptune_CO.add(neptune)
-    scene.add(neptune_CO)
+    axes.add(neptune_CO)
 
     /// PLUTO OBJECTS ///
     let pluto_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -235,18 +236,20 @@ export function SolarSystem(){
     pluto.material.map = textures[pluto.name]
     pluto.position.set(pluto_radius, 0, 0)
     pluto_CO.add(pluto)
-    scene.add(pluto_CO)
+    axes.add(pluto_CO)
+
 
     // Adding light sources
     let ambientLight = new THREE.AmbientLight(0x444444)
-    //let directionalLight = new THREE.DirectionalLight(0x777777)
     let pointLight = new THREE.PointLight(0xBBBBBB)
     pointLight.position.set(0, 0, 0)
 
 
     scene.add(ambientLight)
-    //scene.add(directionalLight)
-    scene.add(pointLight)
+    axes.add(pointLight)
+
+    // Adding axes
+    scene.add(axes)
 
     let cameraControls = new OrbitControls(camera, renderer.domElement)
     cameraControls.addEventListener("change", function(){
@@ -336,6 +339,10 @@ export function SolarSystem(){
         //pluto
         pluto_CO.rotation.y += pluto_orbit
         //pluto.rotation.y += pluto_rotation
+
+        axes.position.x = earth_radius * Math.sin(earth_CO.rotation.y - (Math.PI / 2))
+        axes.position.z = earth_radius * Math.sin(earth_CO.rotation.y)
+
 
         camera.lookAt(scene.position)
         renderer.render(scene, camera)
