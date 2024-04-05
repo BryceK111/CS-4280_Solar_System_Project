@@ -300,6 +300,39 @@ export function SolarSystem(){
     let pluto_orbit = earth_rotation / 90560.0
     let pluto_rotation = earth_rotation * (24 / 16)
 
+    /// RANDOMIZING ROTATION OF PLANETS ///
+    function randomize() {
+        // Earth rotations and moon
+        earth_CO.rotation.y = Math.random() * 2 * Math.PI // contains earth and moon
+        moon_CO.rotation.y = Math.random() * 2 * Math.PI // contains moon
+
+        // mercury
+        mercury_CO.rotation.y = Math.random() * 2 * Math.PI
+
+        // Venus
+        venus_CO.rotation.y = Math.random() * 2 * Math.PI
+
+        //mars
+        mars_CO.rotation.y = Math.random() * 2 * Math.PI
+
+        //jupiter
+        jupiter_CO.rotation.y = Math.random() * 2 * Math.PI
+
+        //saturn
+        saturn_CO.rotation.y = Math.random() * 2 * Math.PI
+
+        //yourAnus
+        yourAnus_CO.rotation.y = Math.random() * 2 * Math.PI
+
+        //neptune
+        neptune_CO.rotation.y = Math.random() * 2 * Math.PI
+
+        //pluto
+        pluto_CO.rotation.y = Math.random() * 2 * Math.PI
+    }
+
+    randomize()
+
     function animate() {
         sun.rotation.y += sun_rotation // sun is not connected to anything
 
