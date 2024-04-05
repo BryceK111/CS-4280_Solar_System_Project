@@ -241,7 +241,7 @@ export function SolarSystem(){
 
     // Adding light sources
     let ambientLight = new THREE.AmbientLight(0x444444)
-    let pointLight = new THREE.PointLight(0xBBBBBB)
+    let pointLight = new THREE.PointLight(0xFFFFFF)
     pointLight.position.set(0, 0, 0)
 
 
@@ -340,7 +340,7 @@ export function SolarSystem(){
         pluto_CO.rotation.y += pluto_orbit
         //pluto.rotation.y += pluto_rotation
 
-        axes.position.x = earth_radius * Math.sin(earth_CO.rotation.y - (Math.PI / 2))
+        axes.position.x = earth_radius * Math.sin(earth_CO.rotation.y - (Math.PI / 2)) // cosine but faster
         axes.position.z = earth_radius * Math.sin(earth_CO.rotation.y)
 
 
