@@ -437,7 +437,7 @@ export function SolarSystem(){
         else if(controls.snap_to === "Uranus")
         {
             controls.planet = yourAnus_CO
-            controls.orbital_radius = yourAnus_CO
+            controls.orbital_radius = yourAnus_radius
         }
         else if(controls.snap_to === "Neptune")
         {
