@@ -99,8 +99,10 @@ export function SolarSystem(){
 
     /// OBJECT DISTANCE VARIABLES ///
     let earth_radius_actual = 92.94 // in millions of miles
-    let earth_radius = 1500
+    let earth_radius = 1500.0
     let moon_radius = earth_radius * (.2389 / earth_radius_actual)
+
+    let sun_radius = 0.0
 
     let mercury_radius = earth_radius * (34.51 / earth_radius_actual)
     let venus_radius = earth_radius * (67.66 / earth_radius_actual)
@@ -251,12 +253,22 @@ export function SolarSystem(){
     // Adding axes
     scene.add(axes)
 
+    /// ADDING CONTROLS DICTIONARY ///
+    let controls = {
+        speed: 1.0,
+        snap_to: "Sun",
+        planet: sun,
+        orbital_radius: sun_radius,
+        randomize: false
+    }
+
+    /// ADDING CAMERA CONTROLS
     let cameraControls = new OrbitControls(camera, renderer.domElement)
     cameraControls.addEventListener("change", function(){
         renderer.render(scene, camera)
     })
 
-    camera.position.set(-200, 400, -200)
+    camera.position.set(-1000, 1000, -1000)
 
     /// SPEED VARIABLES ///
 
@@ -294,11 +306,11 @@ export function SolarSystem(){
 
     // neptune and its moons
     let neptune_orbit = earth_rotation / 60190.0
-    let neptune_rotation = earth_rotation * (24 / 16)
+    let neptune_rotation = earth_rotation * (24.0 / 16.0)
 
     // pluto and its moons
     let pluto_orbit = earth_rotation / 90560.0
-    let pluto_rotation = earth_rotation * (24 / 16)
+    let pluto_rotation = earth_rotation * (24.0 / 16.0)
 
     /// RANDOMIZING ROTATION OF PLANETS ///
     function randomize() {
@@ -330,51 +342,51 @@ export function SolarSystem(){
         //pluto
         pluto_CO.rotation.y = Math.random() * 2 * Math.PI
     }
-
     randomize()
 
     function animate() {
-        sun.rotation.y += sun_rotation // sun is not connected to anything
+        sun.rotation.y += sun_rotation * controls.speed // sun is not connected to anything
 
         // Earth rotations
-        earth_CO.rotation.y += earth_orbit // contains earth and moon
-        earth.rotation.y += earth_rotation
-        moon_CO.rotation.y += moon_orbit // contains moon
+        earth_CO.rotation.y += earth_orbit * controls.speed// contains earth and moon
+        earth.rotation.y += earth_rotation * controls.speed
+        moon_CO.rotation.y += moon_orbit * controls.speed // contains moon
 
         // mercury
-        mercury_CO.rotation.y += mercury_orbit
-        mercury.rotation.y += mercury_rotation
+        mercury_CO.rotation.y += mercury_orbit * controls.speed
+        mercury.rotation.y += mercury_rotation * controls.speed
 
         // Venus
-        venus_CO.rotation.y += venus_orbit
-        venus.rotation.y += venus_rotation
+        venus_CO.rotation.y += venus_orbit * controls.speed
+        venus.rotation.y += venus_rotation * controls.speed
 
         //mars
-        mars_CO.rotation.y += mars_orbit
-        mars.rotation.y += mars_rotation
+        mars_CO.rotation.y += mars_orbit * controls.speed
+        mars.rotation.y += mars_rotation * controls.speed
 
         //jupiter
-        jupiter_CO.rotation.y += jupiter_orbit
-        jupiter.rotation.y += jupiter_rotation
+        jupiter_CO.rotation.y += jupiter_orbit * controls.speed
+        jupiter.rotation.y += jupiter_rotation * controls.speed
 
         //saturn
-        saturn_CO.rotation.y += saturn_orbit
-        saturn.rotation.y += saturn_rotation
+        saturn_CO.rotation.y += saturn_orbit * controls.speed
+        saturn.rotation.y += saturn_rotation * controls.speed
 
         //yourAnus
-        yourAnus_CO.rotation.y += yourAnus_orbit
-        yourAnus.rotation.y += yourAnus_rotation
+        yourAnus_CO.rotation.y += yourAnus_orbit * controls.speed
+        yourAnus.rotation.y += yourAnus_rotation * controls.speed
 
         //neptune
-        neptune_CO.rotation.y += neptune_orbit
-        neptune.rotation.y += neptune_rotation
+        neptune_CO.rotation.y += neptune_orbit * controls.speed
+        neptune.rotation.y += neptune_rotation * controls.speed
 
         //pluto
-        pluto_CO.rotation.y += pluto_orbit
-        //pluto.rotation.y += pluto_rotation
+        pluto_CO.rotation.y += pluto_orbit * controls.speed
+        //pluto.rotation.y += pluto_rotation * controls.speed
 
-        axes.position.x = earth_radius * Math.sin(earth_CO.rotation.y - (Math.PI / 2)) // cosine but faster
-        axes.position.z = earth_radius * Math.sin(earth_CO.rotation.y)
+        // Camera Snap
+        axes.position.x = controls.orbital_radius * Math.sin(controls.planet.rotation.y - (Math.PI / 2)) // cosine but faster
+        axes.position.z = controls.orbital_radius * Math.sin(controls.planet.rotation.y)
 
 
         camera.lookAt(scene.position)
@@ -383,8 +395,83 @@ export function SolarSystem(){
 
         requestAnimationFrame(animate)
     }
-
     animate()
+
+    function change_snap()
+    {
+        if(controls.snap_to === "Sun")
+        {
+            controls.planet = sun
+            controls.orbital_radius = sun_radius
+        }
+        else if(controls.snap_to === "Mercury")
+        {
+            controls.planet = mercury_CO
+            controls.orbital_radius = mercury_radius
+        }
+        else if(controls.snap_to === "Venus")
+        {
+            controls.planet = venus_CO
+            controls.orbital_radius = venus_radius
+        }
+        else if(controls.snap_to === "Earth")
+        {
+            controls.planet = earth_CO
+            controls.orbital_radius = earth_radius
+        }
+        else if(controls.snap_to === "Mars")
+        {
+            controls.planet = mars_CO
+            controls.orbital_radius = mars_radius
+        }
+        else if(controls.snap_to === "Jupiter")
+        {
+            controls.planet = jupiter_CO
+            controls.orbital_radius = jupiter_radius
+        }
+        else if(controls.snap_to === "Saturn")
+        {
+            controls.planet = saturn_CO
+            controls.orbital_radius = saturn_radius
+        }
+        else if(controls.snap_to === "Uranus")
+        {
+            controls.planet = yourAnus_CO
+            controls.orbital_radius = yourAnus_CO
+        }
+        else if(controls.snap_to === "Neptune")
+        {
+            controls.planet = neptune_CO
+            controls.orbital_radius = neptune_radius
+        }
+        else if(controls.snap_to === "Pluto")
+        {
+            controls.planet = pluto_CO
+            controls.orbital_radius = pluto_radius
+        }
+        else
+        {
+            controls.planet = sun
+            controls.orbital_radius = sun_radius
+        }
+        camera.position.set(-1000, 1000, -1000)
+    }
+
+    let gui = new dat.GUI()
+    document.querySelector('aside').appendChild(gui.domElement)
+    gui.add(controls, 'speed').min(.1).max(100.0)
+    gui.add(controls, 'snap_to', [
+        "Sun",
+        "Mercury",
+        "Venus",
+        "Earth",
+        "Mars",
+        "Jupiter",
+        "Saturn",
+        "Uranus",
+        "Neptune",
+        "Pluto"
+    ]).onChange(change_snap)
+
 }
-//displayScene()
 SolarSystem()
