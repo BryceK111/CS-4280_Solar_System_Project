@@ -204,8 +204,9 @@ export function SolarSystem(){
     saturn_CO.add(saturn)
     axes.add(saturn_CO)
 
+    let texture = new THREE.TextureLoader().load('./images/saturn_ring.png')
     let ring = new THREE.Mesh(new THREE.RingGeometry(300, 600, 40))
-    ring.materialParams = { side: THREE.DoubleSide }
+    ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
     ring.name = 'saturn_ring'
     ring.rotateX(Math.PI/3)
     scene.add(ring)
