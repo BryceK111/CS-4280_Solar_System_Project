@@ -204,6 +204,15 @@ export function SolarSystem(){
     saturn_CO.add(saturn)
     axes.add(saturn_CO)
 
+    let ring = new THREE.Mesh(new THREE.RingGeometry(400, 600, 40))
+    ring.materialParams = { side: THREE.DoubleSide }
+    ring.name = 'saturn_ring'
+    ring.rotateX(Math.PI/3)
+    scene.add(ring)
+    ring.material = new THREE.MeshStandardMaterial(ring.materialParams)
+    ring.material.map = textures[ring.name]
+
+
     /// URANUS OBJECTS ///
     let yourAnus_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     yourAnus_CO.name = 'obama'
@@ -371,6 +380,9 @@ export function SolarSystem(){
         //saturn
         saturn_CO.rotation.y += saturn_orbit * controls.speed
         saturn.rotation.y += saturn_rotation * controls.speed
+        let x = saturn_radius * Math.sin(saturn_CO.rotation.y + (Math.PI / 2))
+        let z = saturn_radius * Math.sin(saturn_CO.rotation.y + Math.PI)
+        ring.position.set(x + axes.position.x,0,z + axes.position.z)
 
         //yourAnus
         yourAnus_CO.rotation.y += yourAnus_orbit * controls.speed
