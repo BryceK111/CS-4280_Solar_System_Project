@@ -10,7 +10,7 @@ import { sinusoidal, checkerboard, somePattern} from './textures'
 import { MTLLoader, OBJLoader} from 'three-obj-mtl-loader' // material and object loaders
 
 // First: Set up your name
-let std_name = "Bryce Johnson"
+let std_name = "Bryce Johnson & Brendan Bates"
 document.querySelector('#std_name').innerHTML = `<strong>${std_name}</strong>`
 
 //Then: comes everything else
@@ -204,7 +204,7 @@ export function SolarSystem(){
     saturn_CO.add(saturn)
     axes.add(saturn_CO)
 
-    let ring = new THREE.Mesh(new THREE.RingGeometry(400, 600, 40))
+    let ring = new THREE.Mesh(new THREE.RingGeometry(300, 600, 40))
     ring.materialParams = { side: THREE.DoubleSide }
     ring.name = 'saturn_ring'
     ring.rotateX(Math.PI/3)
