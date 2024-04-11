@@ -210,7 +210,7 @@ export function SolarSystem(){
     ring.name = 'saturn_ring'
     ring.rotateX(Math.PI/3)
     scene.add(ring)
-    ring.material = new THREE.MeshStandardMaterial(ring.materialParams)
+    ring.material = new THREE.MeshPhongMaterial(ring.materialParams)
     ring.material.map = textures[ring.name]
 
 
