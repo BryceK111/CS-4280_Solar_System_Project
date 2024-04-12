@@ -148,17 +148,23 @@ export function SolarSystem(){
     earth_CO.name = 'obama'
     earth_CO.material.map = textures[earth_CO.name]
 
+    let earth_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    earth_C.name = 'obama'
+    earth_C.material.map = textures[earth_C.name]
+    earth_C.position.set(earth_radius, 0, 0)
+
     let earth = new THREE.Mesh(new THREE.SphereBufferGeometry(earth_size, 40, 40), new THREE.MeshStandardMaterial())
     earth.name = 'earth'
     earth.material.map = textures[earth.name]
-    earth.position.set(earth_radius, 0, 0)
-    earth_CO.add(earth)
+    earth.rotateX(23.5 * Math.PI / 180)
+    earth_C.add(earth)
+    earth_CO.add(earth_C)
 
     let moon_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     moon_CO.name = 'obama'
     moon_CO.material.map = textures[moon_CO.name]
-    moon_CO.position.set(earth.position.x,earth.position.y,earth.position.z)
-    earth_CO.add(moon_CO)
+    moon_CO.rotateX(23.5 * Math.PI / 180)
+    earth_C.add(moon_CO)
 
     let moon = new THREE.Mesh(new THREE.SphereBufferGeometry(moon_size, 40, 40), new THREE.MeshStandardMaterial())
     moon.name = 'moon'
@@ -398,6 +404,7 @@ export function SolarSystem(){
 
         // Earth rotations
         earth_CO.rotation.y += earth_orbit * controls.speed// contains earth and moon
+        earth_C.rotation.y = - earth_CO.rotation.y
         earth.rotation.y += earth_rotation * controls.speed
         moon_CO.rotation.y += moon_orbit * controls.speed // contains moon
 
@@ -407,7 +414,7 @@ export function SolarSystem(){
 
         // Venus
         venus_CO.rotation.y += venus_orbit * controls.speed
-        venus.rotation.y += venus_rotation * controls.speed
+        venus.rotation.y -= venus_rotation * controls.speed
 
         //mars
         mars_CO.rotation.y += mars_orbit * controls.speed
