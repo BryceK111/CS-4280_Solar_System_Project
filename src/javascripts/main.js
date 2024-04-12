@@ -257,6 +257,14 @@ export function SolarSystem(){
     neptune_CO.add(neptune)
     axes.add(neptune_CO)
 
+    texture = new THREE.TextureLoader().load('./images/neptune_rings.png')
+    let neptune_ring = new THREE.Mesh(new THREE.RingGeometry(50, 250, 40))
+    neptune_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
+    neptune_ring.rotateX(Math.PI/2)
+    scene.add(neptune_ring)
+    neptune_ring.material = new THREE.MeshBasicMaterial(neptune_ring.materialParams)
+    neptune_ring.material.map = texture
+
     /// PLUTO OBJECTS ///
     let pluto_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     pluto_CO.name = 'obama'
@@ -418,6 +426,9 @@ export function SolarSystem(){
         //neptune
         neptune_CO.rotation.y += neptune_orbit * controls.speed
         neptune.rotation.y += neptune_rotation * controls.speed
+        x = neptune_radius * Math.sin(neptune_CO.rotation.y + (Math.PI / 2))
+        z = neptune_radius * Math.sin(neptune_CO.rotation.y + Math.PI)
+        neptune_ring.position.set(x + axes.position.x,0,z + axes.position.z)
 
         //pluto
         pluto_CO.rotation.y += pluto_orbit * controls.speed
