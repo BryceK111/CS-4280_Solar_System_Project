@@ -232,8 +232,18 @@ export function SolarSystem(){
     yourAnus.name = 'yourAnus'
     yourAnus.material.map = textures[yourAnus.name]
     yourAnus.position.set(yourAnus_radius, 0, 0)
+    yourAnus.rotateX(97.7 * Math.PI / 180)
+    yourAnus.rotateZ(Math.PI/2)
     yourAnus_CO.add(yourAnus)
     axes.add(yourAnus_CO)
+
+    texture = new THREE.TextureLoader().load('./images/uranus_ring.png')
+    let uranus_ring = new THREE.Mesh(new THREE.RingGeometry(50, 175, 40))
+    uranus_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
+    yourAnus.rotateX(7.7 * Math.PI / 180)
+    scene.add(uranus_ring)
+    uranus_ring.material = new THREE.MeshPhongMaterial(uranus_ring.materialParams)
+    uranus_ring.material.map = texture
 
     /// NEPTUNE OBJECTS ///
     let neptune_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -399,7 +409,11 @@ export function SolarSystem(){
 
         //yourAnus
         yourAnus_CO.rotation.y += yourAnus_orbit * controls.speed
-        yourAnus.rotation.y += yourAnus_rotation * controls.speed
+        yourAnus.rotation.x += yourAnus_rotation * controls.speed
+        x = yourAnus_radius * Math.sin(yourAnus_CO.rotation.y + (Math.PI / 2))
+        z = yourAnus_radius * Math.sin(yourAnus_CO.rotation.y + Math.PI)
+        uranus_ring.position.set(x + axes.position.x,0,z + axes.position.z)
+        uranus_ring.rotation.y = yourAnus_CO.rotation.y + (Math.PI / 2)
 
         //neptune
         neptune_CO.rotation.y += neptune_orbit * controls.speed
