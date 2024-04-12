@@ -268,17 +268,23 @@ export function SolarSystem(){
     neptune_CO.name = 'obama'
     neptune_CO.material.map = textures[neptune_CO.name]
 
+    let neptune_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    neptune_C.name = 'obama'
+    neptune_C.material.map = textures[neptune_CO.name]
+    neptune_C.position.set(neptune_radius, 0, 0)
+
     let neptune = new THREE.Mesh(new THREE.SphereBufferGeometry(neptune_size, 40, 40), new THREE.MeshStandardMaterial())
     neptune.name = 'neptune'
     neptune.material.map = textures[neptune.name]
-    neptune.position.set(neptune_radius, 0, 0)
-    neptune_CO.add(neptune)
+    neptune.rotateX(-28 * Math.PI / 180)
+    neptune_C.add(neptune)
+    neptune_CO.add(neptune_C)
     axes.add(neptune_CO)
 
     texture = new THREE.TextureLoader().load('./images/neptune_rings.png')
     let neptune_ring = new THREE.Mesh(new THREE.RingGeometry(50, 250, 40))
     neptune_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
-    neptune_ring.rotateX(Math.PI/2)
+    neptune_ring.rotateX((90 - 28) * Math.PI / 180)
     scene.add(neptune_ring)
     neptune_ring.material = new THREE.MeshBasicMaterial(neptune_ring.materialParams)
     neptune_ring.material.map = texture
@@ -446,6 +452,7 @@ export function SolarSystem(){
 
         //neptune
         neptune_CO.rotation.y += neptune_orbit * controls.speed
+        neptune_C.rotation.y = -neptune_CO.rotation.y
         neptune.rotation.y += neptune_rotation * controls.speed
         x = neptune_radius * Math.sin(neptune_CO.rotation.y + (Math.PI / 2))
         z = neptune_radius * Math.sin(neptune_CO.rotation.y + Math.PI)
