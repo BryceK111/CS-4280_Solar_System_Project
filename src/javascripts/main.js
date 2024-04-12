@@ -193,10 +193,10 @@ export function SolarSystem(){
     axes.add(jupiter_CO)
 
     let texture = new THREE.TextureLoader().load('./images/jupiter_ring.png')
-    let jupiter_ring = new THREE.Mesh(new THREE.RingGeometry(300, 600, 40))
-    jupiter_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
-    jupiter_ring.name = 'saturn_ring'
-    jupiter_ring.rotateX(Math.PI/3)
+    let jupiter_ring = new THREE.Mesh(new THREE.RingGeometry(250, 450, 40))
+    jupiter_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true, opacity: 0.5 }
+    jupiter_ring.rotateY(Math.PI/ 2.5)
+    jupiter_ring.rotateX(Math.PI/ 2.5)
     scene.add(jupiter_ring)
     jupiter_ring.material = new THREE.MeshPhongMaterial(jupiter_ring.materialParams)
     jupiter_ring.material.map = texture
@@ -386,12 +386,15 @@ export function SolarSystem(){
         //jupiter
         jupiter_CO.rotation.y += jupiter_orbit * controls.speed
         jupiter.rotation.y += jupiter_rotation * controls.speed
+        let x = jupiter_radius * Math.sin(jupiter_CO.rotation.y + (Math.PI / 2))
+        let z = jupiter_radius * Math.sin(jupiter_CO.rotation.y + Math.PI)
+        jupiter_ring.position.set(x + axes.position.x,0,z + axes.position.z)
 
         //saturn
         saturn_CO.rotation.y += saturn_orbit * controls.speed
         saturn.rotation.y += saturn_rotation * controls.speed
-        let x = saturn_radius * Math.sin(saturn_CO.rotation.y + (Math.PI / 2))
-        let z = saturn_radius * Math.sin(saturn_CO.rotation.y + Math.PI)
+        x = saturn_radius * Math.sin(saturn_CO.rotation.y + (Math.PI / 2))
+        z = saturn_radius * Math.sin(saturn_CO.rotation.y + Math.PI)
         saturn_ring.position.set(x + axes.position.x,0,z + axes.position.z)
 
         //yourAnus
