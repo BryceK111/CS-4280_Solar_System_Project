@@ -185,18 +185,24 @@ export function SolarSystem(){
     jupiter_CO.name = 'obama'
     jupiter_CO.material.map = textures[jupiter_CO.name]
 
+    let jupiter_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    jupiter_C.name = 'obama'
+    jupiter_C.material.map = textures[jupiter_C.name]
+    jupiter_C.position.set(jupiter_radius, 0, 0)
+
     let jupiter = new THREE.Mesh(new THREE.SphereBufferGeometry(jupiter_size, 40, 40), new THREE.MeshStandardMaterial())
     jupiter.name = 'jupiter'
     jupiter.material.map = textures[jupiter.name]
-    jupiter.position.set(jupiter_radius, 0, 0)
-    jupiter_CO.add(jupiter)
+    jupiter.rotateX(-3.13 * Math.PI / 180)
+    jupiter_C.add(jupiter)
+    jupiter_CO.add(jupiter_C)
     axes.add(jupiter_CO)
 
     let texture = new THREE.TextureLoader().load('./images/jupiter_ring.png')
     let jupiter_ring = new THREE.Mesh(new THREE.RingGeometry(250, 450, 40))
-    jupiter_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true, opacity: 0.5 }
-    jupiter_ring.rotateY(Math.PI/ 2.5)
-    jupiter_ring.rotateX(Math.PI/ 2.5)
+    jupiter_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
+    jupiter_ring.rotation.x = ((90 - 3.13)* Math.PI / 180)
+    jupiter_ring.rotation.z = Math.PI/2
     scene.add(jupiter_ring)
     jupiter_ring.material = new THREE.MeshPhongMaterial(jupiter_ring.materialParams)
     jupiter_ring.material.map = texture
@@ -207,17 +213,23 @@ export function SolarSystem(){
     saturn_CO.name = 'obama'
     saturn_CO.material.map = textures[saturn_CO.name]
 
+    let saturn_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    saturn_C.name = 'obama'
+    saturn_C.material.map = textures[saturn_C.name]
+    saturn_C.position.set(saturn_radius, 0, 0)
+
     let saturn = new THREE.Mesh(new THREE.SphereBufferGeometry(saturn_size, 40, 40), new THREE.MeshStandardMaterial())
     saturn.name = 'saturn'
     saturn.material.map = textures[saturn.name]
-    saturn.position.set(saturn_radius, 0, 0)
-    saturn_CO.add(saturn)
+    saturn.rotateX(-26.73 * Math.PI / 180)
+    saturn_C.add(saturn)
+    saturn_CO.add(saturn_C)
     axes.add(saturn_CO)
 
     texture = new THREE.TextureLoader().load('./images/saturn_ring.png')
     let saturn_ring = new THREE.Mesh(new THREE.RingGeometry(300, 600, 40))
     saturn_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
-    saturn_ring.rotateX(Math.PI/3)
+    saturn_ring.rotateX((90 - 26.73) * Math.PI / 180)
     scene.add(saturn_ring)
     saturn_ring.material = new THREE.MeshPhongMaterial(saturn_ring.materialParams)
     saturn_ring.material.map = texture
@@ -403,6 +415,7 @@ export function SolarSystem(){
 
         //jupiter
         jupiter_CO.rotation.y += jupiter_orbit * controls.speed
+        jupiter_C.rotation.y = -jupiter_CO.rotation.y
         jupiter.rotation.y += jupiter_rotation * controls.speed
         let x = jupiter_radius * Math.sin(jupiter_CO.rotation.y + (Math.PI / 2))
         let z = jupiter_radius * Math.sin(jupiter_CO.rotation.y + Math.PI)
@@ -410,6 +423,7 @@ export function SolarSystem(){
 
         //saturn
         saturn_CO.rotation.y += saturn_orbit * controls.speed
+        saturn_C.rotation.y = -saturn_CO.rotation.y
         saturn.rotation.y += saturn_rotation * controls.speed
         x = saturn_radius * Math.sin(saturn_CO.rotation.y + (Math.PI / 2))
         z = saturn_radius * Math.sin(saturn_CO.rotation.y + Math.PI)
