@@ -192,6 +192,16 @@ export function SolarSystem(){
     jupiter_CO.add(jupiter)
     axes.add(jupiter_CO)
 
+    let texture = new THREE.TextureLoader().load('./images/jupiter_ring.png')
+    let jupiter_ring = new THREE.Mesh(new THREE.RingGeometry(300, 600, 40))
+    jupiter_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
+    jupiter_ring.name = 'saturn_ring'
+    jupiter_ring.rotateX(Math.PI/3)
+    scene.add(jupiter_ring)
+    jupiter_ring.material = new THREE.MeshPhongMaterial(jupiter_ring.materialParams)
+    jupiter_ring.material.map = texture
+
+
     /// SATURN OBJECTS ///
     let saturn_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     saturn_CO.name = 'obama'
@@ -204,14 +214,13 @@ export function SolarSystem(){
     saturn_CO.add(saturn)
     axes.add(saturn_CO)
 
-    let texture = new THREE.TextureLoader().load('./images/saturn_ring.png')
-    let ring = new THREE.Mesh(new THREE.RingGeometry(300, 600, 40))
-    ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
-    ring.name = 'saturn_ring'
-    ring.rotateX(Math.PI/3)
-    scene.add(ring)
-    ring.material = new THREE.MeshPhongMaterial(ring.materialParams)
-    ring.material.map = textures[ring.name]
+    texture = new THREE.TextureLoader().load('./images/saturn_ring.png')
+    let saturn_ring = new THREE.Mesh(new THREE.RingGeometry(300, 600, 40))
+    saturn_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
+    saturn_ring.rotateX(Math.PI/3)
+    scene.add(saturn_ring)
+    saturn_ring.material = new THREE.MeshPhongMaterial(saturn_ring.materialParams)
+    saturn_ring.material.map = texture
 
 
     /// URANUS OBJECTS ///
@@ -383,7 +392,7 @@ export function SolarSystem(){
         saturn.rotation.y += saturn_rotation * controls.speed
         let x = saturn_radius * Math.sin(saturn_CO.rotation.y + (Math.PI / 2))
         let z = saturn_radius * Math.sin(saturn_CO.rotation.y + Math.PI)
-        ring.position.set(x + axes.position.x,0,z + axes.position.z)
+        saturn_ring.position.set(x + axes.position.x,0,z + axes.position.z)
 
         //yourAnus
         yourAnus_CO.rotation.y += yourAnus_orbit * controls.speed
