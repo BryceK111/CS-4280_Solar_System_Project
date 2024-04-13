@@ -6,8 +6,8 @@ require.context('../stylesheets/', true, /\.(css|scss)$/i)
 import * as THREE from 'three'
 import * as dat from 'dat.gui'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
-import { sinusoidal, checkerboard, somePattern} from './textures'
-import { MTLLoader, OBJLoader} from 'three-obj-mtl-loader' // material and object loaders
+import {OBJLoader} from 'three/examples/jsm/loaders/OBJLoader.js';
+import {MTLLoader} from 'three/examples/jsm/loaders/MTLLoader.js';
 
 // First: Set up your name
 let std_name = "Bryce Johnson & Brendan Bates"
@@ -301,12 +301,37 @@ export function SolarSystem(){
     pluto_CO.add(pluto)
     axes.add(pluto_CO)
 
+    /// COMET ///
+    let comet_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    comet_CO.name = 'obama'
+    comet_CO.material.map = textures[comet_CO.name]
 
-    // Adding light sources
+    let cmt_mtl = './models/comet/Comet.mtl'
+    let cmt_obj = './models/comet/Comet.obj'
+
+    var mtLoader = new MTLLoader();
+    mtLoader.load(cmt_mtl,
+        function(materials) {
+            materials.preload()
+
+            var objLoader = new OBJLoader();
+            objLoader.setMaterials(materials)
+            objLoader.load(cmt_obj,
+                function(object){
+                    object.name = 'comet'
+                    comet_CO.add(object)
+                })
+        })
+
+    let comet = comet_CO.getObjectByName('comet')
+    axes.add(comet_CO)
+
+
+
+    /// LIGHT SOURCES ///
     let ambientLight = new THREE.AmbientLight(0x444444)
     let pointLight = new THREE.PointLight(0xFFFFFF)
     pointLight.position.set(0, 0, 0)
-
 
     scene.add(ambientLight)
     axes.add(pointLight)
