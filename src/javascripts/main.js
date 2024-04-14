@@ -302,8 +302,11 @@ export function SolarSystem(){
     axes.add(pluto_CO)
 
     /// COMET ///
+    let rx = 1500.0 * 10
+    let rz = 1500.0 * 2.5
     let comet_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     comet_CO.name = 'obama'
+    comet_CO.position.set(rx*(1 - .125), 0, 0)
     comet_CO.material.map = textures[comet_CO.name]
 
     let comet_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -335,8 +338,21 @@ export function SolarSystem(){
     comet.position.set(0,-3.5,0)
     comet.rotateX(1.2)
     comet.rotateY(.7)
+    comet_C.scale.set(2,2,2)
+
+    // add comet trail
+    texture = new THREE.TextureLoader().load('./images/comet_trail.png')
+    let comet_trail = new THREE.Mesh(new THREE.PlaneGeometry(100,100))
+    comet_trail.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
+    comet_trail.rotateY((-90) * Math.PI / 180)
+    comet_trail.rotateZ(-.5)
+    comet_trail.position.set(0,5,40)
+    scene.add(comet_trail)
+    comet_trail.material = new THREE.MeshBasicMaterial(comet_trail.materialParams)
+    comet_trail.material.map = texture
 
     comet_C.add(comet)
+    comet_C.add(comet_trail)
     comet_CO.add(comet_C)
     axes.add(comet_CO)
 
@@ -412,6 +428,9 @@ export function SolarSystem(){
     let pluto_orbit = earth_rotation / 90560.0
     let pluto_rotation = earth_rotation * (24.0 / 16.0)
 
+    // comet
+    let comet_angle = 0.0
+
     /// RANDOMIZING ROTATION OF PLANETS ///
     function randomize() {
         // Earth rotations and moon
@@ -441,6 +460,9 @@ export function SolarSystem(){
 
         //pluto
         pluto_CO.rotation.y = Math.random() * 2 * Math.PI
+
+        //comet
+        comet_angle = Math.random() * 2 * Math.PI
     }
     randomize()
 
@@ -500,6 +522,13 @@ export function SolarSystem(){
         //pluto
         pluto_CO.rotation.y += pluto_orbit * controls.speed
         //pluto.rotation.y += pluto_rotation * controls.speed
+
+        //comet
+        comet_angle += earth_orbit * controls.speed * ((rx * 2 + 1000) - (comet_C.position.x + rx)) / rx
+        comet_C.rotation.y = comet_angle - (Math.PI / 2)
+        x = rx * Math.sin(comet_angle - (Math.PI/2))
+        z = rz * Math.sin(comet_angle)
+        comet_C.position.set(x,0,z)
 
         // Camera Snap
         axes.position.x = controls.orbital_radius * Math.sin(controls.planet.rotation.y - (Math.PI / 2)) // cosine but faster
