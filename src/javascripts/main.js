@@ -306,6 +306,14 @@ export function SolarSystem(){
     comet_CO.name = 'obama'
     comet_CO.material.map = textures[comet_CO.name]
 
+    let comet_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    comet_C.name = 'obama'
+    comet_C.material.map = textures[comet_C.name]
+
+    let comet = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1))
+    comet.name = 'obama'
+    comet.material.map = textures[comet.name]
+
     let cmt_mtl = './models/comet/Comet.mtl'
     let cmt_obj = './models/comet/Comet.obj'
 
@@ -319,11 +327,17 @@ export function SolarSystem(){
             objLoader.load(cmt_obj,
                 function(object){
                     object.name = 'comet'
-                    comet_CO.add(object)
+                    comet.add(object)
                 })
         })
 
-    let comet = comet_CO.getObjectByName('comet')
+    // aligns the comet with the z axis
+    comet.position.set(0,-3.5,0)
+    comet.rotateX(1.2)
+    comet.rotateY(.7)
+
+    comet_C.add(comet)
+    comet_CO.add(comet_C)
     axes.add(comet_CO)
 
 
