@@ -94,7 +94,7 @@ export function SolarSystem(){
     let saturn_size = earth_size*9;
     let yourAnus_size = earth_size*4;
     let neptune_size = earth_size*4;
-    let pluto_size = earth_size*4;
+    let pluto_size = earth_size/6;
 
 
     /// OBJECT DISTANCE VARIABLES ///
@@ -294,7 +294,7 @@ export function SolarSystem(){
     pluto_CO.name = 'obama'
     pluto_CO.material.map = textures[pluto_CO.name]
 
-    let pluto= new THREE.Mesh(new THREE.BoxBufferGeometry(.1, neptune_size*100, neptune_size*100), new THREE.MeshStandardMaterial)
+    let pluto= new THREE.Mesh(new THREE.SphereBufferGeometry(pluto_size, 40, 40), new THREE.MeshStandardMaterial)
     pluto.name = 'pluto'
     pluto.material.map = textures[pluto.name]
     pluto.position.set(pluto_radius, 0, 0)
@@ -426,7 +426,7 @@ export function SolarSystem(){
 
     // pluto and its moons
     let pluto_orbit = earth_rotation / 90560.0
-    let pluto_rotation = earth_rotation * (24.0 / 16.0)
+    let pluto_rotation = earth_rotation / 6
 
     // comet
     let comet_angle = 0.0
@@ -521,7 +521,7 @@ export function SolarSystem(){
 
         //pluto
         pluto_CO.rotation.y += pluto_orbit * controls.speed
-        //pluto.rotation.y += pluto_rotation * controls.speed
+        pluto.rotation.y += pluto_rotation * controls.speed
 
         //comet
         comet_angle += earth_orbit * controls.speed * ((rx * 2 + 1000) - (comet_C.position.x + rx)) / rx
