@@ -207,9 +207,8 @@ export function SolarSystem(){
     let texture = new THREE.TextureLoader().load('./images/jupiter_ring.png')
     let jupiter_ring = new THREE.Mesh(new THREE.RingGeometry(250, 450, 40))
     jupiter_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
-    jupiter_ring.rotation.x = ((90 - 3.13)* Math.PI / 180)
-    jupiter_ring.rotation.z = Math.PI/2
-    scene.add(jupiter_ring)
+    jupiter_ring.rotateX((90 - 3.13) * Math.PI / 180)
+    jupiter_C.add(jupiter_ring)
     jupiter_ring.material = new THREE.MeshPhongMaterial(jupiter_ring.materialParams)
     jupiter_ring.material.map = texture
 
@@ -236,7 +235,7 @@ export function SolarSystem(){
     let saturn_ring = new THREE.Mesh(new THREE.RingGeometry(300, 600, 40))
     saturn_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
     saturn_ring.rotateX((90 - 26.73) * Math.PI / 180)
-    scene.add(saturn_ring)
+    saturn_C.add(saturn_ring)
     saturn_ring.material = new THREE.MeshPhongMaterial(saturn_ring.materialParams)
     saturn_ring.material.map = texture
 
@@ -246,20 +245,25 @@ export function SolarSystem(){
     yourAnus_CO.name = 'obama'
     yourAnus_CO.material.map = textures[yourAnus_CO.name]
 
+    let yourAnus_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    yourAnus_C.name = 'obama'
+    yourAnus_C.material.map = textures[yourAnus_C.name]
+    yourAnus_C.rotateX(97.7 * Math.PI / 180)
+    yourAnus_C.rotateZ(Math.PI/2)
+    yourAnus_C.position.set(yourAnus_radius, 0, 0)
+
     let yourAnus = new THREE.Mesh(new THREE.SphereBufferGeometry(yourAnus_size, 40, 40), new THREE.MeshStandardMaterial())
     yourAnus.name = 'yourAnus'
     yourAnus.material.map = textures[yourAnus.name]
-    yourAnus.position.set(yourAnus_radius, 0, 0)
-    yourAnus.rotateX(97.7 * Math.PI / 180)
-    yourAnus.rotateZ(Math.PI/2)
-    yourAnus_CO.add(yourAnus)
+    yourAnus_C.add(yourAnus)
+    yourAnus_CO.add(yourAnus_C)
     axes.add(yourAnus_CO)
 
     texture = new THREE.TextureLoader().load('./images/uranus_ring.png')
     let uranus_ring = new THREE.Mesh(new THREE.RingGeometry(50, 175, 40))
     uranus_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
-    yourAnus.rotateX(7.7 * Math.PI / 180)
-    scene.add(uranus_ring)
+    uranus_ring.rotateX(Math.PI / 2)
+    yourAnus_C.add(uranus_ring)
     uranus_ring.material = new THREE.MeshPhongMaterial(uranus_ring.materialParams)
     uranus_ring.material.map = texture
 
@@ -285,7 +289,7 @@ export function SolarSystem(){
     let neptune_ring = new THREE.Mesh(new THREE.RingGeometry(50, 250, 40))
     neptune_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
     neptune_ring.rotateX((90 - 28) * Math.PI / 180)
-    scene.add(neptune_ring)
+    neptune_C.add(neptune_ring)
     neptune_ring.material = new THREE.MeshBasicMaterial(neptune_ring.materialParams)
     neptune_ring.material.map = texture
 
@@ -491,43 +495,30 @@ export function SolarSystem(){
         jupiter_CO.rotation.y += jupiter_orbit * controls.speed
         jupiter_C.rotation.y = -jupiter_CO.rotation.y
         jupiter.rotation.y += jupiter_rotation * controls.speed
-        let x = jupiter_radius * Math.sin(jupiter_CO.rotation.y + (Math.PI / 2))
-        let z = jupiter_radius * Math.sin(jupiter_CO.rotation.y + Math.PI)
-        jupiter_ring.position.set(x + axes.position.x,0,z + axes.position.z)
 
         //saturn
         saturn_CO.rotation.y += saturn_orbit * controls.speed
         saturn_C.rotation.y = -saturn_CO.rotation.y
         saturn.rotation.y += saturn_rotation * controls.speed
-        x = saturn_radius * Math.sin(saturn_CO.rotation.y + (Math.PI / 2))
-        z = saturn_radius * Math.sin(saturn_CO.rotation.y + Math.PI)
-        saturn_ring.position.set(x + axes.position.x,0,z + axes.position.z)
 
         //yourAnus
         yourAnus_CO.rotation.y += yourAnus_orbit * controls.speed
-        yourAnus.rotation.x += yourAnus_rotation * controls.speed
-        x = yourAnus_radius * Math.sin(yourAnus_CO.rotation.y + (Math.PI / 2))
-        z = yourAnus_radius * Math.sin(yourAnus_CO.rotation.y + Math.PI)
-        uranus_ring.position.set(x + axes.position.x,0,z + axes.position.z)
-        uranus_ring.rotation.y = yourAnus_CO.rotation.y + (Math.PI / 2)
+        yourAnus.rotation.y += yourAnus_rotation * controls.speed
 
         //neptune
         neptune_CO.rotation.y += neptune_orbit * controls.speed
         neptune_C.rotation.y = -neptune_CO.rotation.y
         neptune.rotation.y += neptune_rotation * controls.speed
-        x = neptune_radius * Math.sin(neptune_CO.rotation.y + (Math.PI / 2))
-        z = neptune_radius * Math.sin(neptune_CO.rotation.y + Math.PI)
-        neptune_ring.position.set(x + axes.position.x,0,z + axes.position.z)
 
         //pluto
         pluto_CO.rotation.y += pluto_orbit * controls.speed
         pluto.rotation.y += pluto_rotation * controls.speed
 
         //comet
-        comet_angle += earth_orbit * controls.speed * ((rx * 2 + 1000) - (comet_C.position.x + rx)) / rx
+        comet_angle += earth_orbit * controls.speed * ((rx * 2 + 1000) - (comet_C.position.x + rx)) / rx // dynamic speed
         comet_C.rotation.y = comet_angle - (Math.PI / 2)
-        x = rx * Math.sin(comet_angle - (Math.PI/2))
-        z = rz * Math.sin(comet_angle)
+        let x = rx * Math.sin(comet_angle - (Math.PI/2))
+        let z = rz * Math.sin(comet_angle)
         comet_C.position.set(x,0,z)
 
         // Camera Snap
