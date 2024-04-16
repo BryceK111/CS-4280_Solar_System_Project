@@ -76,9 +76,13 @@ export function SolarSystem(){
         'obama': texLoader.load('./images/obama.jpg', function(){
             renderer.render(scene, camera)
         }),
+        'sky': texLoader.load('./images/Sky_box_8k.jpg', function(){
+            renderer.render(scene, camera)
+        })
     }
 
     /// OBJECT SIZE VARIABLES ///
+    let sky_size = 100000.0
     let earth_size = 20
     let moon_size = earth_size / 4
 
@@ -114,6 +118,12 @@ export function SolarSystem(){
     let neptune_radius = earth_radius * (2778 / earth_radius_actual)
     let pluto_radius = earth_radius * (3700 / earth_radius_actual)
     /********************** Objects **********************/
+    let sky = new THREE.Mesh(new THREE.SphereBufferGeometry(sky_size, 40, 40), new THREE.MeshBasicMaterial())
+    sky.name = 'sky'
+    sky.material.side = THREE.BackSide
+    sky.material.map = textures[sky.name]
+    scene.add(sky)
+
     let sun = new THREE.Mesh(new THREE.SphereBufferGeometry(sun_size, 40, 40), new THREE.MeshBasicMaterial())
     sun.name = 'sun'
     sun.material.map = textures[sun.name]
@@ -202,6 +212,136 @@ export function SolarSystem(){
     jupiter.rotateX(-3.13 * Math.PI / 180)
     jupiter_C.add(jupiter)
     jupiter_CO.add(jupiter_C)
+
+    let jmoon0_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    jmoon0_CO.name = 'obama'
+    jmoon0_CO.material.map = textures[jmoon0_CO.name]
+    jupiter_CO.add(jmoon0_CO)
+
+    let jmoon0_size = 27+(10*Math.random())
+    let jmoon0 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon0_size, 40, 40), new THREE.MeshStandardMaterial())
+    jmoon0.name = 'moon'
+    jmoon0.rotation.y = Math.PI // moon faces earth
+    jmoon0.position.set(40, 0, 0)
+    jmoon0.material.map = textures[jmoon0.name]
+    jmoon0_CO.add(jmoon0)
+
+    let jmoon1_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    jmoon1_CO.name = 'obama'
+    jmoon1_CO.material.map = textures[jmoon1_CO.name]
+    jupiter_CO.add(jmoon1_CO)
+
+    let jmoon1_size = 27+(10*Math.random())
+    let jmoon1 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon1_size, 40, 40), new THREE.MeshStandardMaterial())
+    jmoon1.name = 'moon'
+    jmoon1.rotation.y = Math.PI // moon faces earth
+    jmoon1.position.set(40, 0, 0)
+    jmoon1.material.map = textures[jmoon1.name]
+    jmoon1_CO.add(jmoon1)
+
+    let jmoon2_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    jmoon2_CO.name = 'obama'
+    jmoon2_CO.material.map = textures[jmoon2_CO.name]
+    jupiter_CO.add(jmoon2_CO)
+
+    let jmoon2_size = 27+(10*Math.random())
+    let jmoon2 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon2_size, 40, 40), new THREE.MeshStandardMaterial())
+    jmoon2.name = 'moon'
+    jmoon2.rotation.y = Math.PI // moon faces earth
+    jmoon2.position.set(40, 0, 0)
+    jmoon2.material.map = textures[jmoon2.name]
+    jmoon2_CO.add(jmoon2)
+
+    let jmoon3_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    jmoon3_CO.name = 'obama'
+    jmoon3_CO.material.map = textures[jmoon3_CO.name]
+    jupiter_CO.add(jmoon3_CO)
+
+    let jmoon3_size = 27+(10*Math.random())
+    let jmoon3 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon3_size, 40, 40), new THREE.MeshStandardMaterial())
+    jmoon3.name = 'moon'
+    jmoon3.rotation.y = Math.PI // moon faces earth
+    jmoon3.position.set(40, 0, 0)
+    jmoon3.material.map = textures[jmoon3.name]
+    jmoon3_CO.add(jmoon3)
+
+    let jmoon4_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    jmoon4_CO.name = 'obama'
+    jmoon4_CO.material.map = textures[jmoon4_CO.name]
+    jupiter_CO.add(jmoon4_CO)
+
+    let jmoon4_size = 27+(10*Math.random())
+    let jmoon4 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon4_size, 40, 40), new THREE.MeshStandardMaterial())
+    jmoon4.name = 'moon'
+    jmoon4.rotation.y = Math.PI // moon faces earth
+    jmoon4.position.set(40, 0, 0)
+    jmoon4.material.map = textures[jmoon4.name]
+    jmoon4_CO.add(jmoon4)
+
+    let jmoon5_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    jmoon5_CO.name = 'obama'
+    jmoon5_CO.material.map = textures[jmoon5_CO.name]
+    jupiter_CO.add(jmoon5_CO)
+
+    let jmoon5_size = 27+(10*Math.random())
+    let jmoon5 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon5_size, 40, 40), new THREE.MeshStandardMaterial())
+    jmoon5.name = 'moon'
+    jmoon5.rotation.y = Math.PI // moon faces earth
+    jmoon5.position.set(40, 0, 0)
+    jmoon5.material.map = textures[jmoon5.name]
+    jmoon5_CO.add(jmoon5)
+
+    let jmoon6_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    jmoon6_CO.name = 'obama'
+    jmoon6_CO.material.map = textures[jmoon6_CO.name]
+    jupiter_CO.add(jmoon6_CO)
+
+    let jmoon6_size = 27+(10*Math.random())
+    let jmoon6 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon6_size, 40, 40), new THREE.MeshStandardMaterial())
+    jmoon6.name = 'moon'
+    jmoon6.rotation.y = Math.PI // moon faces earth
+    jmoon6.position.set(40, 0, 0)
+    jmoon6.material.map = textures[jmoon6.name]
+    jmoon6_CO.add(jmoon6)
+
+    let jmoon7_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    jmoon7_CO.name = 'obama'
+    jmoon7_CO.material.map = textures[jmoon7_CO.name]
+    jupiter_CO.add(jmoon7_CO)
+
+    let jmoon7_size = 27+(10*Math.random())
+    let jmoon7 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon7_size, 40, 40), new THREE.MeshStandardMaterial())
+    jmoon7.name = 'moon'
+    jmoon7.rotation.y = Math.PI // moon faces earth
+    jmoon7.position.set(40, 0, 0)
+    jmoon7.material.map = textures[jmoon7.name]
+    jmoon7_CO.add(jmoon7)
+
+    let jmoon8_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    jmoon8_CO.name = 'obama'
+    jmoon8_CO.material.map = textures[jmoon8_CO.name]
+    jupiter_CO.add(jmoon8_CO)
+
+    let jmoon8_size = 27+(10*Math.random())
+    let jmoon8 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon8_size, 40, 40), new THREE.MeshStandardMaterial())
+    jmoon8.name = 'moon'
+    jmoon8.rotation.y = Math.PI // moon faces earth
+    jmoon8.position.set(40, 0, 0)
+    jmoon8.material.map = textures[jmoon8.name]
+    jmoon8_CO.add(jmoon8)
+
+    let jmoon9_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    jmoon9_CO.name = 'obama'
+    jmoon9_CO.material.map = textures[jmoon9_CO.name]
+    jupiter_CO.add(jmoon9_CO)
+
+    let jmoon9_size = 27+(10*Math.random())
+    let jmoon9 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon9_size, 40, 40), new THREE.MeshStandardMaterial())
+    jmoon9.name = 'moon'
+    jmoon9.rotation.y = Math.PI // moon faces earth
+    jmoon9.position.set(40, 0, 0)
+    jmoon9.material.map = textures[jmoon9.name]
+    jmoon9_CO.add(jmoon9)
     axes.add(jupiter_CO)
 
     let texture = new THREE.TextureLoader().load('./images/jupiter_ring.png')
@@ -211,7 +351,6 @@ export function SolarSystem(){
     jupiter_C.add(jupiter_ring)
     jupiter_ring.material = new THREE.MeshPhongMaterial(jupiter_ring.materialParams)
     jupiter_ring.material.map = texture
-
 
     /// SATURN OBJECTS ///
     let saturn_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -415,6 +554,7 @@ export function SolarSystem(){
     // jupiter and its moons
     let jupiter_orbit = earth_rotation / 4333.0
     let jupiter_rotation = earth_rotation * (24 / 10)
+    let jmoon_orbit =  (earth_rotation / 4333.0)/27.0
 
     //saturn and its onion rings
     let saturn_orbit = earth_rotation / 10756.0
@@ -452,6 +592,16 @@ export function SolarSystem(){
 
         //jupiter
         jupiter_CO.rotation.y = Math.random() * 2 * Math.PI
+        jmoon0_CO.rotation.y = Math.random() * 2 * Math.PI
+        jmoon1_CO.rotation.y = Math.random() * 2 * Math.PI
+        jmoon2_CO.rotation.y = Math.random() * 2 * Math.PI
+        jmoon3_CO.rotation.y = Math.random() * 2 * Math.PI
+        jmoon4_CO.rotation.y = Math.random() * 2 * Math.PI
+        jmoon5_CO.rotation.y = Math.random() * 2 * Math.PI
+        jmoon6_CO.rotation.y = Math.random() * 2 * Math.PI
+        jmoon7_CO.rotation.y = Math.random() * 2 * Math.PI
+        jmoon8_CO.rotation.y = Math.random() * 2 * Math.PI
+        jmoon9_CO.rotation.y = Math.random() * 2 * Math.PI
 
         //saturn
         saturn_CO.rotation.y = Math.random() * 2 * Math.PI
@@ -495,6 +645,16 @@ export function SolarSystem(){
         jupiter_CO.rotation.y += jupiter_orbit * controls.speed
         jupiter_C.rotation.y = -jupiter_CO.rotation.y
         jupiter.rotation.y += jupiter_rotation * controls.speed
+        jmoon0_CO.rotation.y += jmoon_orbit * controls.speed // contains moon
+        jmoon1_CO.rotation.y += jmoon_orbit * controls.speed // contains moon
+        jmoon2_CO.rotation.y += jmoon_orbit * controls.speed // contains moon
+        jmoon3_CO.rotation.y += jmoon_orbit * controls.speed // contains moon
+        jmoon4_CO.rotation.y += jmoon_orbit * controls.speed // contains moon
+        jmoon5_CO.rotation.y += jmoon_orbit * controls.speed // contains moon
+        jmoon6_CO.rotation.y += jmoon_orbit * controls.speed // contains moon
+        jmoon7_CO.rotation.y += jmoon_orbit * controls.speed // contains moon
+        jmoon8_CO.rotation.y += jmoon_orbit * controls.speed // contains moon
+        jmoon9_CO.rotation.y += jmoon_orbit * controls.speed // contains moon
 
         //saturn
         saturn_CO.rotation.y += saturn_orbit * controls.speed
