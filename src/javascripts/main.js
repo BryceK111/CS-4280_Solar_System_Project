@@ -378,6 +378,27 @@ export function SolarSystem(){
     saturn_ring.material = new THREE.MeshPhongMaterial(saturn_ring.materialParams)
     saturn_ring.material.map = texture
 
+    /// Saturn's moons ///
+    let saturn_moon_CO = []
+    let saturn_moon = []
+    let texture_list = ["obama", "obama", "obama", "obama", "obama", "obama", "obama", "obama", "obama", "obama"]
+    for (let i = 0; i < 10; i++) {
+        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 40, 40), new THREE.MeshStandardMaterial())
+        temp_moon.name = texture_list[i]
+        temp_moon.material.map = textures[temp_moon.name]
+        saturn_moon.push(temp_moon)
+
+        let temp_moon_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+        temp_moon_CO.name = 'obama'
+        temp_moon_CO.material.map = textures[temp_moon_CO.name]
+        saturn_moon_CO.push(temp_moon_CO)
+        saturn_moon_CO[i].add(saturn_moon[i])
+        saturn_C.add(saturn_moon_CO[i])
+    }
+
+    saturn_moon[0].position.set(10,0,0)
+    saturn_moon[0].scale.set(5,5,5)
+
 
     /// URANUS OBJECTS ///
     let yourAnus_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
