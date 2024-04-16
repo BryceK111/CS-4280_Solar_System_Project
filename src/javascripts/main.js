@@ -19,7 +19,7 @@ export function SolarSystem(){
     let canvas = document.querySelector('#webgl-scene')
     let scene = new THREE.Scene()
     let renderer = new THREE.WebGLRenderer({canvas})
-    let camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, .1, 100000)
+    let camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, .1, 200000)
 
     renderer.setSize(canvas.clientWidth, canvas.clientHeight)
     renderer.setClearColor(0x000000)
@@ -211,137 +211,137 @@ export function SolarSystem(){
     jupiter.material.map = textures[jupiter.name]
     jupiter.rotateX(-3.13 * Math.PI / 180)
     jupiter_C.add(jupiter)
-    jupiter_CO.add(jupiter_C)
 
     let jmoon0_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     jmoon0_CO.name = 'obama'
     jmoon0_CO.material.map = textures[jmoon0_CO.name]
-    jupiter_CO.add(jmoon0_CO)
+    jupiter_C.add(jmoon0_CO)
 
-    let jmoon0_size = 27+(10*Math.random())
+    let jmoon0_size = (20*Math.random())
     let jmoon0 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon0_size, 40, 40), new THREE.MeshStandardMaterial())
     jmoon0.name = 'moon'
     jmoon0.rotation.y = Math.PI // moon faces earth
-    jmoon0.position.set(40, 0, 0)
+    jmoon0.position.set(280, 0, 0)
     jmoon0.material.map = textures[jmoon0.name]
     jmoon0_CO.add(jmoon0)
 
     let jmoon1_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     jmoon1_CO.name = 'obama'
     jmoon1_CO.material.map = textures[jmoon1_CO.name]
-    jupiter_CO.add(jmoon1_CO)
+    jupiter_C.add(jmoon1_CO)
 
-    let jmoon1_size = 27+(10*Math.random())
+    let jmoon1_size = (20*Math.random())
     let jmoon1 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon1_size, 40, 40), new THREE.MeshStandardMaterial())
     jmoon1.name = 'moon'
     jmoon1.rotation.y = Math.PI // moon faces earth
-    jmoon1.position.set(40, 0, 0)
+    jmoon1.position.set(369, 0, 0)
     jmoon1.material.map = textures[jmoon1.name]
     jmoon1_CO.add(jmoon1)
 
     let jmoon2_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     jmoon2_CO.name = 'obama'
     jmoon2_CO.material.map = textures[jmoon2_CO.name]
-    jupiter_CO.add(jmoon2_CO)
+    jupiter_C.add(jmoon2_CO)
 
-    let jmoon2_size = 27+(10*Math.random())
+    let jmoon2_size = (20*Math.random())
     let jmoon2 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon2_size, 40, 40), new THREE.MeshStandardMaterial())
     jmoon2.name = 'moon'
     jmoon2.rotation.y = Math.PI // moon faces earth
-    jmoon2.position.set(40, 0, 0)
+    jmoon2.position.set(420, 0, 0)
     jmoon2.material.map = textures[jmoon2.name]
     jmoon2_CO.add(jmoon2)
 
     let jmoon3_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     jmoon3_CO.name = 'obama'
     jmoon3_CO.material.map = textures[jmoon3_CO.name]
-    jupiter_CO.add(jmoon3_CO)
+    jupiter_C.add(jmoon3_CO)
 
-    let jmoon3_size = 27+(10*Math.random())
+    let jmoon3_size = (20*Math.random())
     let jmoon3 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon3_size, 40, 40), new THREE.MeshStandardMaterial())
     jmoon3.name = 'moon'
     jmoon3.rotation.y = Math.PI // moon faces earth
-    jmoon3.position.set(40, 0, 0)
+    jmoon3.position.set(410, 0, 0)
     jmoon3.material.map = textures[jmoon3.name]
     jmoon3_CO.add(jmoon3)
 
     let jmoon4_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     jmoon4_CO.name = 'obama'
     jmoon4_CO.material.map = textures[jmoon4_CO.name]
-    jupiter_CO.add(jmoon4_CO)
+    jupiter_C.add(jmoon4_CO)
 
-    let jmoon4_size = 27+(10*Math.random())
+    let jmoon4_size = (20*Math.random())
     let jmoon4 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon4_size, 40, 40), new THREE.MeshStandardMaterial())
     jmoon4.name = 'moon'
     jmoon4.rotation.y = Math.PI // moon faces earth
-    jmoon4.position.set(40, 0, 0)
+    jmoon4.position.set(380, 0, 0)
     jmoon4.material.map = textures[jmoon4.name]
     jmoon4_CO.add(jmoon4)
 
     let jmoon5_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     jmoon5_CO.name = 'obama'
     jmoon5_CO.material.map = textures[jmoon5_CO.name]
-    jupiter_CO.add(jmoon5_CO)
+    jupiter_C.add(jmoon5_CO)
 
-    let jmoon5_size = 27+(10*Math.random())
+    let jmoon5_size = (20*Math.random())
     let jmoon5 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon5_size, 40, 40), new THREE.MeshStandardMaterial())
     jmoon5.name = 'moon'
     jmoon5.rotation.y = Math.PI // moon faces earth
-    jmoon5.position.set(40, 0, 0)
+    jmoon5.position.set(300, 0, 0)
     jmoon5.material.map = textures[jmoon5.name]
     jmoon5_CO.add(jmoon5)
 
     let jmoon6_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     jmoon6_CO.name = 'obama'
     jmoon6_CO.material.map = textures[jmoon6_CO.name]
-    jupiter_CO.add(jmoon6_CO)
+    jupiter_C.add(jmoon6_CO)
 
-    let jmoon6_size = 27+(10*Math.random())
+    let jmoon6_size = (20*Math.random())
     let jmoon6 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon6_size, 40, 40), new THREE.MeshStandardMaterial())
     jmoon6.name = 'moon'
     jmoon6.rotation.y = Math.PI // moon faces earth
-    jmoon6.position.set(40, 0, 0)
+    jmoon6.position.set(325, 0, 0)
     jmoon6.material.map = textures[jmoon6.name]
     jmoon6_CO.add(jmoon6)
 
     let jmoon7_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     jmoon7_CO.name = 'obama'
     jmoon7_CO.material.map = textures[jmoon7_CO.name]
-    jupiter_CO.add(jmoon7_CO)
+    jupiter_C.add(jmoon7_CO)
 
-    let jmoon7_size = 27+(10*Math.random())
+    let jmoon7_size = (20*Math.random())
     let jmoon7 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon7_size, 40, 40), new THREE.MeshStandardMaterial())
     jmoon7.name = 'moon'
     jmoon7.rotation.y = Math.PI // moon faces earth
-    jmoon7.position.set(40, 0, 0)
+    jmoon7.position.set(350, 0, 0)
     jmoon7.material.map = textures[jmoon7.name]
     jmoon7_CO.add(jmoon7)
 
     let jmoon8_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     jmoon8_CO.name = 'obama'
     jmoon8_CO.material.map = textures[jmoon8_CO.name]
-    jupiter_CO.add(jmoon8_CO)
+    jupiter_C.add(jmoon8_CO)
 
-    let jmoon8_size = 27+(10*Math.random())
+    let jmoon8_size = (20*Math.random())
     let jmoon8 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon8_size, 40, 40), new THREE.MeshStandardMaterial())
     jmoon8.name = 'moon'
     jmoon8.rotation.y = Math.PI // moon faces earth
-    jmoon8.position.set(40, 0, 0)
+    jmoon8.position.set(450, 0, 0)
     jmoon8.material.map = textures[jmoon8.name]
     jmoon8_CO.add(jmoon8)
 
     let jmoon9_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     jmoon9_CO.name = 'obama'
     jmoon9_CO.material.map = textures[jmoon9_CO.name]
-    jupiter_CO.add(jmoon9_CO)
+    jupiter_C.add(jmoon9_CO)
 
-    let jmoon9_size = 27+(10*Math.random())
+    let jmoon9_size = (20*Math.random())
     let jmoon9 = new THREE.Mesh(new THREE.SphereBufferGeometry(jmoon9_size, 40, 40), new THREE.MeshStandardMaterial())
     jmoon9.name = 'moon'
     jmoon9.rotation.y = Math.PI // moon faces earth
-    jmoon9.position.set(40, 0, 0)
+    jmoon9.position.set(400, 0, 0)
     jmoon9.material.map = textures[jmoon9.name]
     jmoon9_CO.add(jmoon9)
+    jupiter_CO.add(jupiter_C)
     axes.add(jupiter_CO)
 
     let texture = new THREE.TextureLoader().load('./images/jupiter_ring.png')
