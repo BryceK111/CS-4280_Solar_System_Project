@@ -78,7 +78,38 @@ export function SolarSystem(){
         }),
         'sky': texLoader.load('./images/Sky_box_8k.jpg', function(){
             renderer.render(scene, camera)
+        }),
+        'dione': texLoader.load('./images/dione.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'enceladus': texLoader.load('./images/enceladus.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'epimetheus': texLoader.load('./images/Epimetheus.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'hyperion': texLoader.load('./images/hyperion.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'janus': texLoader.load('./images/janus.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'lapetus': texLoader.load('./images/lapetus.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'mimas': texLoader.load('./images/mimas.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'rhea': texLoader.load('./images/Rhea.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'tethys': texLoader.load('./images/Tethys.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'titan': texLoader.load('./images/titan.jpg', function(){
+            renderer.render(scene, camera)
         })
+
     }
 
     /// OBJECT SIZE VARIABLES ///
@@ -275,7 +306,7 @@ export function SolarSystem(){
     let saturn_moon_CO = []
     let saturn_moon = []
     let saturn_moon_speed = []
-    let texture_list = ["obama", "obama", "obama", "obama", "obama", "obama", "obama", "obama", "obama", "obama"]
+    let texture_list = ["dione", "enceladus", "epimetheus", "hyperion", "janus", "lapetus", "mimas", "rhea", "tethys", "titan"]
     for (let i = 0; i < 146; i++) {
         let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 40, 40), new THREE.MeshStandardMaterial())
         temp_moon.name = texture_list[i%10]
