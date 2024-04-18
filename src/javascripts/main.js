@@ -106,7 +106,28 @@ export function SolarSystem(){
         'tethys': texLoader.load('./images/Tethys.jpg', function(){
             renderer.render(scene, camera)
         }),
-        'titan': texLoader.load('./images/titan.jpg', function(){
+        'bennu': texLoader.load('./images/bennu.png', function(){
+            renderer.render(scene, camera)
+        }),
+        'callisto': texLoader.load('./images/callisto.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'europa': texLoader.load('./images/europa.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'ganymede': texLoader.load('./images/ganymede.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'Io': texLoader.load('./images/Io.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'jmoon2': texLoader.load('./images/jmoon2.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'Io2': texLoader.load('./images/Io2.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'thebe': texLoader.load('./images/thebe.jpg', function(){
             renderer.render(scene, camera)
         })
 
@@ -255,7 +276,7 @@ export function SolarSystem(){
 
     let jupiter_moon_CO = []
     let jupiter_moon = []
-    let jupiter_textures = ['obama', 'obama', 'obama', 'obama', 'obama', 'obama', 'obama', 'obama', 'obama', 'obama']
+    let jupiter_textures = ['bennu', 'callisto', 'europa', 'ganymede', 'Io', 'Io2', 'jmoon2', 'thebe', 'moon', 'dione']
     for (let i = 0; i < 95; i++) {
         let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 40, 40), new THREE.MeshStandardMaterial())
         temp_moon.name = jupiter_textures[i%10]
