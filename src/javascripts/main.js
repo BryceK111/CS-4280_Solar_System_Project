@@ -569,8 +569,7 @@ export function SolarSystem(){
         jupiter_C.rotation.y = -jupiter_CO.rotation.y
         jupiter.rotation.y += jupiter_rotation * controls.speed
         for (let i = 0; i < 95; i++) {
-            //let jmoon_orbit = (((saturn_size + 10) / saturn_moon[i].position.x) * (earth_rotation / 17.0))
-            let jmoon_orbit =  earth_rotation/(980*Math.random())
+            let jmoon_orbit = ((250 / jupiter_moon[i].position.x) * (earth_rotation / 17.0))
             jupiter_moon_CO[i].rotation.y += jmoon_orbit * controls.speed // contains moon
         }
         // jmoon1_CO.rotation.y += jmoon_orbit * controls.speed // contains moon
@@ -589,7 +588,7 @@ export function SolarSystem(){
         saturn.rotation.y += saturn_rotation * controls.speed
 
         for (let i = 0; i < 146; i++) {
-            let smoon_orbit = (((saturn_size + 10) / saturn_moon[i].position.x) * (earth_rotation / 17.0))
+            let smoon_orbit = (((saturn_size + 10) / saturn_moon[i].position.x) * (earth_rotation / 16.0))
             saturn_moon_CO[i].rotation.y += smoon_orbit * controls.speed // contains moon
         }
 
