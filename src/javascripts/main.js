@@ -585,6 +585,12 @@ export function SolarSystem(){
     pluto_CO.add(pluto)
     axes.add(pluto_CO)
 
+    let charon= new THREE.Mesh(new THREE.SphereBufferGeometry(pluto_size / 2, 40, 40), new THREE.MeshStandardMaterial)
+    charon.name = 'charon'
+    charon.material.map = textures[charon.name]
+    charon.position.set(15, 0, 0)
+    pluto.add(charon)
+
     /// COMET ///
     let rx = 1500.0 * 10
     let rz = 1500.0 * 2.5
