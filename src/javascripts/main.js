@@ -106,7 +106,7 @@ export function SolarSystem(){
         'tethys': texLoader.load('./images/Tethys.jpg', function(){
             renderer.render(scene, camera)
         }),
-        'bennu': texLoader.load('./images/bennu.png', function(){
+        'bennu': texLoader.load('./images/bennu.jpg', function(){
             renderer.render(scene, camera)
         }),
         'callisto': texLoader.load('./images/callisto.jpg', function(){
@@ -128,6 +128,9 @@ export function SolarSystem(){
             renderer.render(scene, camera)
         }),
         'thebe': texLoader.load('./images/thebe.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'ceres': texLoader.load('./images/ceres.jpg', function(){
             renderer.render(scene, camera)
         })
 
@@ -170,7 +173,7 @@ export function SolarSystem(){
     let neptune_radius = earth_radius * (2778 / earth_radius_actual)
     let pluto_radius = earth_radius * (3700 / earth_radius_actual)
     /********************** Objects **********************/
-    let sky = new THREE.Mesh(new THREE.SphereBufferGeometry(sky_size, 40, 40), new THREE.MeshBasicMaterial())
+    let sky = new THREE.Mesh(new THREE.SphereBufferGeometry(sky_size, 10, 10), new THREE.MeshBasicMaterial())
     sky.name = 'sky'
     sky.material.side = THREE.BackSide
     sky.material.map = textures[sky.name]
@@ -215,7 +218,7 @@ export function SolarSystem(){
     earth_C.material.map = textures[earth_C.name]
     earth_C.position.set(earth_radius, 0, 0)
 
-    let earth = new THREE.Mesh(new THREE.SphereBufferGeometry(earth_size, 40, 40), new THREE.MeshStandardMaterial())
+    let earth = new THREE.Mesh(new THREE.SphereBufferGeometry(earth_size, 20, 20), new THREE.MeshStandardMaterial())
     earth.name = 'earth'
     earth.material.map = textures[earth.name]
     earth.rotateX(23.5 * Math.PI / 180)
@@ -228,10 +231,10 @@ export function SolarSystem(){
     moon_CO.rotateX(23.5 * Math.PI / 180)
     earth_C.add(moon_CO)
 
-    let moon = new THREE.Mesh(new THREE.SphereBufferGeometry(moon_size, 40, 40), new THREE.MeshStandardMaterial())
+    let moon = new THREE.Mesh(new THREE.SphereBufferGeometry(moon_size, 30, 30), new THREE.MeshStandardMaterial())
     moon.name = 'moon'
     moon.material.map = textures[moon.name]
-    moon.position.set(40, 0, 0)
+    moon.position.set(50, 0, 0)
     moon.rotation.y = Math.PI // moon faces earth
     moon_CO.add(moon)
     axes.add(earth_CO)
@@ -266,13 +269,13 @@ export function SolarSystem(){
     phobos_CO.rotateX(25 * Math.PI / 180)
     mars_C.add(phobos_CO)
 
-    let phobos = new THREE.Mesh(new THREE.SphereBufferGeometry(1.5, 40, 40), new THREE.MeshStandardMaterial())
+    let phobos = new THREE.Mesh(new THREE.SphereBufferGeometry(1.5, 10, 10), new THREE.MeshStandardMaterial())
     phobos.name = 'phobos'
     phobos.material.map = textures[phobos.name]
     phobos.position.set(mars_size + 5, 0, 0)
     phobos_CO.add(phobos)
 
-    let deimos = new THREE.Mesh(new THREE.SphereBufferGeometry(1.5, 40, 40), new THREE.MeshStandardMaterial())
+    let deimos = new THREE.Mesh(new THREE.SphereBufferGeometry(1.5, 10, 10), new THREE.MeshStandardMaterial())
     deimos.name = 'deimos'
     deimos.material.map = textures[deimos.name]
     deimos.position.set(mars_size + 50, 0, 0)
@@ -298,7 +301,7 @@ export function SolarSystem(){
     axes.add(jupiter_CO)
 
     let texture = new THREE.TextureLoader().load('./images/jupiter_ring.png')
-    let jupiter_ring = new THREE.Mesh(new THREE.RingGeometry(250, 450, 40))
+    let jupiter_ring = new THREE.Mesh(new THREE.PlaneGeometry(900, 900))
     jupiter_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
     jupiter_ring.rotateX((90 - 3.13) * Math.PI / 180)
     jupiter_C.add(jupiter_ring)
@@ -307,9 +310,9 @@ export function SolarSystem(){
 
     let jupiter_moon_CO = []
     let jupiter_moon = []
-    let jupiter_textures = ['bennu', 'callisto', 'europa', 'ganymede', 'Io', 'Io2', 'jmoon2', 'thebe', 'moon', 'dione']
+    let jupiter_textures = ['bennu', 'callisto', 'europa', 'ganymede', 'Io', 'Io2', 'jmoon2', 'thebe', 'ceres', 'dione']
     for (let i = 0; i < 95; i++) {
-        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 40, 40), new THREE.MeshStandardMaterial())
+        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 20, 20), new THREE.MeshStandardMaterial())
         temp_moon.name = jupiter_textures[i%10]
         temp_moon.material.map = textures[temp_moon.name]
         jupiter_moon.push(temp_moon)
@@ -347,7 +350,7 @@ export function SolarSystem(){
     axes.add(saturn_CO)
 
     texture = new THREE.TextureLoader().load('./images/saturn_ring.png')
-    let saturn_ring = new THREE.Mesh(new THREE.RingGeometry(300, 600, 40))
+    let saturn_ring = new THREE.Mesh(new THREE.PlaneGeometry(1200, 1200))
     saturn_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
     saturn_ring.rotateX((90 - 26.73) * Math.PI / 180)
     saturn_C.add(saturn_ring)
@@ -360,7 +363,7 @@ export function SolarSystem(){
     let saturn_moon_speed = []
     let texture_list = ["dione", "enceladus", "epimetheus", "hyperion", "janus", "lapetus", "mimas", "rhea", "tethys", "titan"]
     for (let i = 0; i < 146; i++) {
-        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 40, 40), new THREE.MeshStandardMaterial())
+        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 20, 20), new THREE.MeshStandardMaterial())
         temp_moon.name = texture_list[i%10]
         temp_moon.material.map = textures[temp_moon.name]
         saturn_moon.push(temp_moon)
@@ -401,12 +404,34 @@ export function SolarSystem(){
     axes.add(yourAnus_CO)
 
     texture = new THREE.TextureLoader().load('./images/uranus_ring.png')
-    let uranus_ring = new THREE.Mesh(new THREE.RingGeometry(50, 175, 40))
+    let uranus_ring = new THREE.Mesh(new THREE.PlaneGeometry(350, 350))
     uranus_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
     uranus_ring.rotateX(Math.PI / 2)
     yourAnus_C.add(uranus_ring)
     uranus_ring.material = new THREE.MeshPhongMaterial(uranus_ring.materialParams)
     uranus_ring.material.map = texture
+
+    let uranus_moon_CO = []
+    let uranus_moon = []
+    let uranus_textures = ['bennu', 'callisto', 'europa', 'ganymede', 'Io', 'Io2', 'jmoon2', 'thebe', 'moon', 'dione']
+    for (let i = 0; i < 28; i++) {
+        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 20, 20), new THREE.MeshStandardMaterial())
+        temp_moon.name = uranus_textures[i%10]
+        temp_moon.material.map = textures[temp_moon.name]
+        uranus_moon.push(temp_moon)
+
+        let temp_moon_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+        temp_moon_CO.name = 'obama'
+        temp_moon_CO.material.map = textures[temp_moon_CO.name]
+        temp_moon_CO.rotateX(-3.13 * Math.PI / 180)
+        uranus_moon_CO.push(temp_moon_CO)
+        uranus_moon_CO[i].add(uranus_moon[i])
+        yourAnus_C.add(uranus_moon_CO[i])
+
+        uranus_moon[i].position.set((1500*Math.random()+250),0,0)
+        let jradius = 20*Math.random()
+        uranus_moon[i].scale.set(jradius,jradius,jradius)
+    }
 
     /// NEPTUNE OBJECTS ///
     let neptune_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -427,7 +452,7 @@ export function SolarSystem(){
     axes.add(neptune_CO)
 
     texture = new THREE.TextureLoader().load('./images/neptune_rings.png')
-    let neptune_ring = new THREE.Mesh(new THREE.RingGeometry(50, 250, 40))
+    let neptune_ring = new THREE.Mesh(new THREE.PlaneGeometry(500, 500, 40))
     neptune_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
     neptune_ring.rotateX((90 - 28) * Math.PI / 180)
     neptune_C.add(neptune_ring)
