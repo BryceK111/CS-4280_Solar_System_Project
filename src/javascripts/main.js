@@ -213,7 +213,8 @@ export function SolarSystem(){
     earth_CO.name = 'obama'
     earth_CO.material.map = textures[earth_CO.name]
 
-    let earth_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    let earth_C = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+    earth_C.material.side = THREE.DoubleSide
     earth_C.name = 'obama'
     earth_C.material.map = textures[earth_C.name]
     earth_C.position.set(earth_radius, 0, 0)
@@ -225,7 +226,8 @@ export function SolarSystem(){
     earth_C.add(earth)
     earth_CO.add(earth_C)
 
-    let moon_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    let moon_CO = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    moon_CO.material.side = THREE.DoubleSide
     moon_CO.name = 'obama'
     moon_CO.material.map = textures[moon_CO.name]
     moon_CO.rotateX(23.5 * Math.PI / 180)
@@ -244,7 +246,8 @@ export function SolarSystem(){
     mars_CO.name = 'obama'
     mars_CO.material.map = textures[mars_CO.name]
 
-    let mars_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    let mars_C = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+    mars_C.material.side = THREE.DoubleSide
     mars_C.name = 'obama'
     mars_C.material.map = textures[mars_C.name]
     mars_C.position.set(mars_radius, 0, 0)
@@ -257,13 +260,15 @@ export function SolarSystem(){
     mars_CO.add(mars_C)
     axes.add(mars_CO)
 
-    let deimos_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    let deimos_CO = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+    deimos_CO.material.side = THREE.DoubleSide
     deimos_CO.name = 'obama'
     deimos_CO.material.map = textures[deimos_CO.name]
     deimos_CO.rotateX(25 * Math.PI / 180)
     mars_C.add(deimos_CO)
 
-    let phobos_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    let phobos_CO = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+    phobos_CO.material.side = THREE.DoubleSide
     phobos_CO.name = 'obama'
     phobos_CO.material.map = textures[phobos_CO.name]
     phobos_CO.rotateX(25 * Math.PI / 180)
@@ -287,7 +292,8 @@ export function SolarSystem(){
     jupiter_CO.name = 'obama'
     jupiter_CO.material.map = textures[jupiter_CO.name]
 
-    let jupiter_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    let jupiter_C = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+    jupiter_C.material.side = THREE.DoubleSide
     jupiter_C.name = 'obama'
     jupiter_C.material.map = textures[jupiter_C.name]
     jupiter_C.position.set(jupiter_radius, 0, 0)
@@ -317,7 +323,8 @@ export function SolarSystem(){
         temp_moon.material.map = textures[temp_moon.name]
         jupiter_moon.push(temp_moon)
 
-        let temp_moon_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+        let temp_moon_CO = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+        temp_moon_CO.material.side = THREE.DoubleSide
         temp_moon_CO.name = 'obama'
         temp_moon_CO.material.map = textures[temp_moon_CO.name]
         temp_moon_CO.rotateX(-3.13 * Math.PI / 180)
@@ -336,7 +343,8 @@ export function SolarSystem(){
     saturn_CO.name = 'obama'
     saturn_CO.material.map = textures[saturn_CO.name]
 
-    let saturn_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    let saturn_C = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+    saturn_C.material.side = THREE.DoubleSide
     saturn_C.name = 'obama'
     saturn_C.material.map = textures[saturn_C.name]
     saturn_C.position.set(saturn_radius, 0, 0)
@@ -368,7 +376,8 @@ export function SolarSystem(){
         temp_moon.material.map = textures[temp_moon.name]
         saturn_moon.push(temp_moon)
 
-        let temp_moon_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+        let temp_moon_CO = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+        temp_moon_CO.material.side = THREE.DoubleSide
         temp_moon_CO.name = 'obama'
         temp_moon_CO.material.map = textures[temp_moon_CO.name]
         temp_moon_CO.rotateX(-26.73 * Math.PI / 180)
@@ -389,7 +398,8 @@ export function SolarSystem(){
     yourAnus_CO.name = 'obama'
     yourAnus_CO.material.map = textures[yourAnus_CO.name]
 
-    let yourAnus_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    let yourAnus_C = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+    yourAnus_C.material.side = THREE.DoubleSide
     yourAnus_C.name = 'obama'
     yourAnus_C.material.map = textures[yourAnus_C.name]
     yourAnus_C.rotateX(97.7 * Math.PI / 180)
@@ -420,7 +430,8 @@ export function SolarSystem(){
         temp_moon.material.map = textures[temp_moon.name]
         uranus_moon.push(temp_moon)
 
-        let temp_moon_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+        let temp_moon_CO = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+        temp_moon_CO.material.side = THREE.DoubleSide
         temp_moon_CO.name = 'obama'
         temp_moon_CO.material.map = textures[temp_moon_CO.name]
         temp_moon_CO.rotateX(-3.13 * Math.PI / 180)
@@ -438,7 +449,8 @@ export function SolarSystem(){
     neptune_CO.name = 'obama'
     neptune_CO.material.map = textures[neptune_CO.name]
 
-    let neptune_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    let neptune_C = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+    neptune_C.material.side = THREE.DoubleSide
     neptune_C.name = 'obama'
     neptune_C.material.map = textures[neptune_CO.name]
     neptune_C.position.set(neptune_radius, 0, 0)
