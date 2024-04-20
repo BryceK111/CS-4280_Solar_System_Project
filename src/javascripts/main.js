@@ -641,6 +641,44 @@ export function SolarSystem(){
     axes.add(comet_CO)
 
     /// Asteroids ///
+    // let rx = 1500.0 * 10
+    // let rz = 1500.0 * 2.5
+    let asteroids_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    asteroids_CO.name = 'obama'
+    asteroids_CO.material.map = textures[asteroids_CO.name]
+
+    let asteroids_C = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+    asteroids_C.material.side = THREE.DoubleSide
+    asteroids_C.name = 'obama'
+    asteroids_C.material.map = textures[asteroids_C.name]
+    asteroids_C.position.set(mars_radius, 0, 0)
+
+    let asteroids = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1))
+    asteroids.name = 'obama'
+    asteroids.material.map = textures[asteroids.name]
+    let ast_mtl = './models/asteroids/asteroids.mtl'
+    let ast_obj = './models/asteroids/asteroids.obj'
+
+    var mtLoader = new MTLLoader();
+    mtLoader.load(ast_mtl,
+        function(materials) {
+            materials.preload()
+
+            var objLoader = new OBJLoader();
+            objLoader.setMaterials(materials)
+            objLoader.load(ast_obj,
+                function(object){
+                    object.name = 'asteroids'
+                    asteroids.add(object)
+                })
+        })
+
+    // aligns the asteroids with the z axis
+    asteroids_C.scale.set(10,10,10)
+
+    asteroids_C.add(asteroids)
+    asteroids_CO.add(asteroids_C)
+    axes.add(asteroids_CO)
 
     /// LIGHT SOURCES ///
     let ambientLight = new THREE.AmbientLight(0x444444)
