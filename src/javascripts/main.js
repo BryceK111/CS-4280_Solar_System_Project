@@ -132,7 +132,24 @@ export function SolarSystem(){
         }),
         'ceres': texLoader.load('./images/ceres.jpg', function(){
             renderer.render(scene, camera)
+        }),
+        'arial': texLoader.load('./images/arial.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'oberon': texLoader.load('./images/oberon.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'puck': texLoader.load('./images/puck.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'titania': texLoader.load('./images/titania.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'umbriel': texLoader.load('./images/umbriel.jpg', function(){
+            renderer.render(scene, camera)
         })
+
+
 
     }
 
@@ -435,7 +452,7 @@ export function SolarSystem(){
         saturn_C.add(saturn_moon_CO[i])
 
         //let r = (saturn_size*9)*Math.random() + saturn_size + 10
-        saturn_moon[i].position.set(((saturn_size*9)*Math.random() + saturn_size + 10),0,0)
+        saturn_moon[i].position.set(((saturn_size*9)*Math.random() + saturn_size + 20),0,0)
         let smoon_orbit = (((saturn_size + 10) * (saturn_size + 10) / (saturn_moon[i].position.x * saturn_moon[i].position.x)) * (earth_rotation / 16.0))
         saturn_moon_speed.push(smoon_orbit)
         let smradius = 20*Math.random()
@@ -474,7 +491,7 @@ export function SolarSystem(){
     let uranus_moon_CO = []
     let uranus_moon = []
     let uranus_moon_speed = []
-    let uranus_textures = ['bennu', 'callisto', 'europa', 'ganymede', 'Io', 'Io2', 'jmoon2', 'thebe', 'moon', 'dione']
+    let uranus_textures = ['bennu', 'callisto', 'europa', 'arial', 'oberon', 'puck', 'titania', 'umbriel', 'epimetheus', 'dione']
     for (let i = 0; i < 28; i++) {
         let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 20, 20), new THREE.MeshStandardMaterial())
         temp_moon.name = uranus_textures[i%10]
@@ -523,6 +540,32 @@ export function SolarSystem(){
     neptune_C.add(neptune_ring)
     neptune_ring.material = new THREE.MeshBasicMaterial(neptune_ring.materialParams)
     neptune_ring.material.map = texture
+
+    let neptune_moon_CO = []
+    let neptune_moon = []
+    let neptune_moon_speed = []
+    let neptune_textures = ['bennu', 'callisto', 'europa', 'ganymede', 'Io', 'Io2', 'jmoon2', 'thebe', 'moon', 'dione']
+    for (let i = 0; i < 14; i++) {
+        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 20, 20), new THREE.MeshStandardMaterial())
+        temp_moon.name = neptune_textures[i%10]
+        temp_moon.material.map = textures[temp_moon.name]
+        neptune_moon.push(temp_moon)
+
+        let temp_moon_CO = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+        temp_moon_CO.material.side = THREE.DoubleSide
+        temp_moon_CO.name = 'obama'
+        temp_moon_CO.material.map = textures[temp_moon_CO.name]
+        temp_moon_CO.rotateX(-28 * Math.PI / 180)
+        neptune_moon_CO.push(temp_moon_CO)
+        neptune_moon_CO[i].add(neptune_moon[i])
+        neptune_C.add(neptune_moon_CO[i])
+
+        neptune_moon[i].position.set(((neptune_size * 5 * Math.random()) + neptune_size + 10),0,0)
+        let umoon_orbit = (((neptune_size + 10) * (neptune_size + 10) / (neptune_moon[i].position.x * neptune_moon[i].position.x)) * (earth_rotation * 3))
+        neptune_moon_speed.push(umoon_orbit)
+        let jradius = 10*Math.random()
+        neptune_moon[i].scale.set(jradius,jradius,jradius)
+    }
 
     /// PLUTO OBJECTS ///
     let pluto_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -656,6 +699,9 @@ export function SolarSystem(){
 
         //neptune
         neptune_CO.rotation.y = Math.random() * 2 * Math.PI
+        for (let i = 0; i < 14; i++) {
+            neptune_moon_CO[i].rotation.y = Math.random() * 2 * Math.PI
+        }
 
         //pluto
         pluto_CO.rotation.y = Math.random() * 2 * Math.PI
@@ -718,6 +764,10 @@ export function SolarSystem(){
         neptune_CO.rotation.y += neptune_orbit * controls.speed
         neptune_C.rotation.y = -neptune_CO.rotation.y
         neptune.rotation.y += neptune_rotation * controls.speed
+
+        for (let i = 0; i < 14; i++) {
+            neptune_moon_CO[i].rotation.y += neptune_moon_speed[i] * controls.speed // contains moon
+        }
 
         //pluto
         pluto_CO.rotation.y += pluto_orbit * controls.speed
