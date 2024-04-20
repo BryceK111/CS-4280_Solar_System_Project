@@ -241,12 +241,43 @@ export function SolarSystem(){
     mars_CO.name = 'obama'
     mars_CO.material.map = textures[mars_CO.name]
 
+    let mars_C = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    mars_C.name = 'obama'
+    mars_C.material.map = textures[mars_C.name]
+    mars_C.position.set(mars_radius, 0, 0)
+
     let mars = new THREE.Mesh(new THREE.SphereBufferGeometry(mars_size, 40, 40), new THREE.MeshStandardMaterial())
     mars.name = 'mars'
     mars.material.map = textures[mars.name]
-    mars.position.set(mars_radius, 0, 0)
-    mars_CO.add(mars)
+    mars.rotateX(25 * Math.PI / 180)
+    mars_C.add(mars)
+    mars_CO.add(mars_C)
     axes.add(mars_CO)
+
+    let deimos_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    deimos_CO.name = 'obama'
+    deimos_CO.material.map = textures[deimos_CO.name]
+    deimos_CO.rotateX(25 * Math.PI / 180)
+    mars_C.add(deimos_CO)
+
+    let phobos_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    phobos_CO.name = 'obama'
+    phobos_CO.material.map = textures[phobos_CO.name]
+    phobos_CO.rotateX(25 * Math.PI / 180)
+    mars_C.add(phobos_CO)
+
+    let phobos = new THREE.Mesh(new THREE.SphereBufferGeometry(1.5, 40, 40), new THREE.MeshStandardMaterial())
+    phobos.name = 'phobos'
+    phobos.material.map = textures[phobos.name]
+    phobos.position.set(mars_size + 5, 0, 0)
+    phobos_CO.add(phobos)
+
+    let deimos = new THREE.Mesh(new THREE.SphereBufferGeometry(1.5, 40, 40), new THREE.MeshStandardMaterial())
+    deimos.name = 'deimos'
+    deimos.material.map = textures[deimos.name]
+    deimos.position.set(mars_size + 50, 0, 0)
+    deimos_CO.add(deimos)
+
 
     /// JUPITER OBJECTS ///
     let jupiter_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
@@ -606,6 +637,9 @@ export function SolarSystem(){
         //mars
         mars_CO.rotation.y += mars_orbit * controls.speed
         mars.rotation.y += mars_rotation * controls.speed
+        mars_C.rotation.y = -mars_CO.rotation.y
+        deimos_CO.rotation.y += deimos_orbit * controls.speed
+        phobos_CO.rotation.y += phobos_orbit * controls.speed
 
         //jupiter
         jupiter_CO.rotation.y += jupiter_orbit * controls.speed
