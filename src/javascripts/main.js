@@ -172,6 +172,52 @@ export function SolarSystem(){
     let yourAnus_radius = earth_radius * (1300 / earth_radius_actual)
     let neptune_radius = earth_radius * (2778 / earth_radius_actual)
     let pluto_radius = earth_radius * (3700 / earth_radius_actual)
+
+    /// SPEED VARIABLES ///
+
+    // earth and moon
+    let earth_orbit = .0001
+    let earth_rotation = earth_orbit * 365.25 // number of days
+    let moon_orbit = earth_rotation / 27.0
+
+    let sun_rotation = earth_rotation / 27.0
+
+    // other rocky planets
+    let mercury_orbit = earth_rotation / 88
+    let mercury_rotation = earth_rotation / 59
+    let venus_orbit = earth_rotation / 224.7
+    let venus_rotation = earth_rotation / 243
+
+    // mars and its moons
+    let mars_orbit = earth_rotation / 687
+    let mars_rotation = earth_rotation * (24/24.6)
+    // may not implement
+    let phobos_orbit = earth_rotation * (24 / 7.6)
+    let deimos_orbit = earth_rotation * (24 / 30.25)
+
+    // jupiter and its moons
+    let jupiter_orbit = earth_rotation / 4333.0
+    let jupiter_rotation = earth_rotation * (24 / 10)
+
+    //saturn and its onion rings
+    let saturn_orbit = earth_rotation / 10756.0
+    let saturn_rotation = earth_rotation * (24 / 10.7)
+
+    // yourAnus and your moms
+    let yourAnus_orbit = earth_rotation / 30687.0
+    let yourAnus_rotation = earth_rotation * (24 / 17)
+
+    // neptune and its moons
+    let neptune_orbit = earth_rotation / 60190.0
+    let neptune_rotation = earth_rotation * (24.0 / 16.0)
+
+    // pluto and its moons
+    let pluto_orbit = earth_rotation / 90560.0
+    let pluto_rotation = earth_rotation / 6
+
+    // comet
+    let comet_angle = 0.0
+
     /********************** Objects **********************/
     let sky = new THREE.Mesh(new THREE.SphereBufferGeometry(sky_size, 10, 10), new THREE.MeshBasicMaterial())
     sky.name = 'sky'
@@ -316,6 +362,7 @@ export function SolarSystem(){
 
     let jupiter_moon_CO = []
     let jupiter_moon = []
+    let jupiter_moon_speed = []
     let jupiter_textures = ['bennu', 'callisto', 'europa', 'ganymede', 'Io', 'Io2', 'jmoon2', 'thebe', 'ceres', 'dione']
     for (let i = 0; i < 95; i++) {
         let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 20, 20), new THREE.MeshStandardMaterial())
@@ -333,6 +380,8 @@ export function SolarSystem(){
         jupiter_C.add(jupiter_moon_CO[i])
 
         jupiter_moon[i].position.set((1500*Math.random()+250),0,0)
+        let jmoon_orbit = ((250 * 250 / (jupiter_moon[i].position.x * jupiter_moon[i].position.x)) * (earth_rotation / 17.0))
+        jupiter_moon_speed.push(jmoon_orbit)
         let jradius = 20*Math.random()
         jupiter_moon[i].scale.set(jradius,jradius,jradius)
     }
@@ -387,7 +436,8 @@ export function SolarSystem(){
 
         //let r = (saturn_size*9)*Math.random() + saturn_size + 10
         saturn_moon[i].position.set(((saturn_size*9)*Math.random() + saturn_size + 10),0,0)
-        //saturn_moon_speed.push(((saturn_size + 10) / saturn_moon[i].position.x) * (earth_rotation / 17.0))
+        let smoon_orbit = (((saturn_size + 10) * (saturn_size + 10) / (saturn_moon[i].position.x * saturn_moon[i].position.x)) * (earth_rotation / 16.0))
+        saturn_moon_speed.push(smoon_orbit)
         let smradius = 20*Math.random()
         saturn_moon[i].scale.set(smradius,smradius,smradius)
     }
@@ -423,6 +473,7 @@ export function SolarSystem(){
 
     let uranus_moon_CO = []
     let uranus_moon = []
+    let uranus_moon_speed = []
     let uranus_textures = ['bennu', 'callisto', 'europa', 'ganymede', 'Io', 'Io2', 'jmoon2', 'thebe', 'moon', 'dione']
     for (let i = 0; i < 28; i++) {
         let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 20, 20), new THREE.MeshStandardMaterial())
@@ -439,8 +490,10 @@ export function SolarSystem(){
         uranus_moon_CO[i].add(uranus_moon[i])
         yourAnus_C.add(uranus_moon_CO[i])
 
-        uranus_moon[i].position.set((1500*Math.random()+250),0,0)
-        let jradius = 20*Math.random()
+        uranus_moon[i].position.set(((yourAnus_size * 5 * Math.random()) + yourAnus_size + 10),0,0)
+        let umoon_orbit = (((yourAnus_size + 10) * (yourAnus_size + 10) / (uranus_moon[i].position.x * uranus_moon[i].position.x)) * (earth_rotation * 3))
+        uranus_moon_speed.push(umoon_orbit)
+        let jradius = 10*Math.random()
         uranus_moon[i].scale.set(jradius,jradius,jradius)
     }
 
@@ -568,51 +621,6 @@ export function SolarSystem(){
 
     camera.position.set(-1000, 1000, -1000)
 
-    /// SPEED VARIABLES ///
-
-    // earth and moon
-    let earth_orbit = .0001
-    let earth_rotation = earth_orbit * 365.25 // number of days
-    let moon_orbit = earth_rotation / 27.0
-
-    let sun_rotation = earth_rotation / 27.0
-
-    // other rocky planets
-    let mercury_orbit = earth_rotation / 88
-    let mercury_rotation = earth_rotation / 59
-    let venus_orbit = earth_rotation / 224.7
-    let venus_rotation = earth_rotation / 243
-
-    // mars and its moons
-    let mars_orbit = earth_rotation / 687
-    let mars_rotation = earth_rotation * (24/24.6)
-    // may not implement
-    let phobos_orbit = earth_rotation * (24 / 7.6)
-    let deimos_orbit = earth_rotation * (24 / 30.25)
-
-    // jupiter and its moons
-    let jupiter_orbit = earth_rotation / 4333.0
-    let jupiter_rotation = earth_rotation * (24 / 10)
-
-    //saturn and its onion rings
-    let saturn_orbit = earth_rotation / 10756.0
-    let saturn_rotation = earth_rotation * (24 / 10.7)
-
-    // yourAnus and your moms
-    let yourAnus_orbit = earth_rotation / 30687.0
-    let yourAnus_rotation = earth_rotation * (24 / 17)
-
-    // neptune and its moons
-    let neptune_orbit = earth_rotation / 60190.0
-    let neptune_rotation = earth_rotation * (24.0 / 16.0)
-
-    // pluto and its moons
-    let pluto_orbit = earth_rotation / 90560.0
-    let pluto_rotation = earth_rotation / 6
-
-    // comet
-    let comet_angle = 0.0
-
     /// RANDOMIZING ROTATION OF PLANETS ///
     function randomize() {
         // Earth rotations and moon
@@ -642,6 +650,9 @@ export function SolarSystem(){
 
         //yourAnus
         yourAnus_CO.rotation.y = Math.random() * 2 * Math.PI
+        for (let i = 0; i < 28; i++) {
+            uranus_moon_CO[i].rotation.y = Math.random() * 2 * Math.PI
+        }
 
         //neptune
         neptune_CO.rotation.y = Math.random() * 2 * Math.PI
@@ -683,8 +694,7 @@ export function SolarSystem(){
         jupiter_C.rotation.y = -jupiter_CO.rotation.y
         jupiter.rotation.y += jupiter_rotation * controls.speed
         for (let i = 0; i < 95; i++) {
-            let jmoon_orbit = ((250 * 250 / (jupiter_moon[i].position.x * jupiter_moon[i].position.x)) * (earth_rotation / 17.0))
-            jupiter_moon_CO[i].rotation.y += jmoon_orbit * controls.speed // contains moon
+            jupiter_moon_CO[i].rotation.y += jupiter_moon_speed[i] * controls.speed // contains moon
         }
 
         //saturn
@@ -693,13 +703,16 @@ export function SolarSystem(){
         saturn.rotation.y += saturn_rotation * controls.speed
 
         for (let i = 0; i < 146; i++) {
-            let smoon_orbit = (((saturn_size + 10) * (saturn_size + 10) / (saturn_moon[i].position.x * saturn_moon[i].position.x)) * (earth_rotation / 16.0))
-            saturn_moon_CO[i].rotation.y += smoon_orbit * controls.speed // contains moon
+            saturn_moon_CO[i].rotation.y += saturn_moon_speed[i] * controls.speed // contains moon
         }
 
         //yourAnus
         yourAnus_CO.rotation.y += yourAnus_orbit * controls.speed
         yourAnus.rotation.y += yourAnus_rotation * controls.speed
+
+        for (let i = 0; i < 28; i++) {
+            uranus_moon_CO[i].rotation.y += uranus_moon_speed[i] * controls.speed // contains moon
+        }
 
         //neptune
         neptune_CO.rotation.y += neptune_orbit * controls.speed
