@@ -388,7 +388,7 @@ export function SolarSystem(){
     let jupiter_moon_speed = []
     let jupiter_textures = ['bennu', 'callisto', 'europa', 'ganymede', 'Io', 'Io2', 'jmoon2', 'thebe', 'ceres', 'jmoon1']
     for (let i = 0; i < 95; i++) {
-        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 20, 20), new THREE.MeshStandardMaterial())
+        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 10, 10), new THREE.MeshStandardMaterial())
         temp_moon.name = jupiter_textures[i%10]
         temp_moon.material.map = textures[temp_moon.name]
         jupiter_moon.push(temp_moon)
@@ -405,7 +405,7 @@ export function SolarSystem(){
         jupiter_moon[i].position.set((1500*Math.random()+250),0,0)
         let jmoon_orbit = ((250 * 250 / (jupiter_moon[i].position.x * jupiter_moon[i].position.x)) * (earth_rotation / 17.0))
         jupiter_moon_speed.push(jmoon_orbit)
-        let jradius = 20*Math.random()
+        let jradius = 8.33*Math.random()
         jupiter_moon[i].scale.set(jradius,jradius,jradius)
     }
 
@@ -443,7 +443,7 @@ export function SolarSystem(){
     let saturn_moon_speed = []
     let texture_list = ["dione", "enceladus", "epimetheus", "hyperion", "janus", "lapetus", "mimas", "rhea", "tethys", "titan"]
     for (let i = 0; i < 146; i++) {
-        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 20, 20), new THREE.MeshStandardMaterial())
+        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 10, 10), new THREE.MeshStandardMaterial())
         temp_moon.name = texture_list[i%10]
         temp_moon.material.map = textures[temp_moon.name]
         saturn_moon.push(temp_moon)
@@ -499,7 +499,7 @@ export function SolarSystem(){
     let uranus_moon_speed = []
     let uranus_textures = ['bennu', 'callisto', 'europa', 'arial', 'oberon', 'puck', 'titania', 'umbriel', 'epimetheus', 'dione']
     for (let i = 0; i < 28; i++) {
-        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 20, 20), new THREE.MeshStandardMaterial())
+        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 5, 5), new THREE.MeshStandardMaterial())
         temp_moon.name = uranus_textures[i%10]
         temp_moon.material.map = textures[temp_moon.name]
         uranus_moon.push(temp_moon)
@@ -516,8 +516,8 @@ export function SolarSystem(){
         uranus_moon[i].position.set(((yourAnus_size * 5 * Math.random()) + yourAnus_size + 10),0,0)
         let umoon_orbit = (((yourAnus_size + 10) * (yourAnus_size + 10) / (uranus_moon[i].position.x * uranus_moon[i].position.x)) * (earth_rotation * 3))
         uranus_moon_speed.push(umoon_orbit)
-        let jradius = 10*Math.random()
-        uranus_moon[i].scale.set(jradius,jradius,jradius)
+        let uradius = 2.5*Math.random()
+        uranus_moon[i].scale.set(uradius,uradius,uradius)
     }
 
     /// NEPTUNE OBJECTS ///
@@ -552,7 +552,7 @@ export function SolarSystem(){
     let neptune_moon_speed = []
     let neptune_textures = ['bennu', 'callisto', 'europa', 'ganymede', 'Io', 'Io2', 'jmoon2', 'thebe', 'moon', 'dione']
     for (let i = 0; i < 14; i++) {
-        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 20, 20), new THREE.MeshStandardMaterial())
+        let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 5, 5), new THREE.MeshStandardMaterial())
         temp_moon.name = neptune_textures[i%10]
         temp_moon.material.map = textures[temp_moon.name]
         neptune_moon.push(temp_moon)
@@ -567,10 +567,10 @@ export function SolarSystem(){
         neptune_C.add(neptune_moon_CO[i])
 
         neptune_moon[i].position.set(((neptune_size * 5 * Math.random()) + neptune_size + 10),0,0)
-        let umoon_orbit = (((neptune_size + 10) * (neptune_size + 10) / (neptune_moon[i].position.x * neptune_moon[i].position.x)) * (earth_rotation * 3))
-        neptune_moon_speed.push(umoon_orbit)
-        let jradius = 10*Math.random()
-        neptune_moon[i].scale.set(jradius,jradius,jradius)
+        let nmoon_orbit = (((neptune_size + 10) * (neptune_size + 10) / (neptune_moon[i].position.x * neptune_moon[i].position.x)) * (earth_rotation * 3))
+        neptune_moon_speed.push(nmoon_orbit)
+        let nradius = 1.8*Math.random() + 0.1 // actual suze is 0.9*Math.random() but youcan barely see them then
+        neptune_moon[i].scale.set(nradius,nradius,nradius)
     }
 
     /// PLUTO OBJECTS ///
@@ -640,7 +640,7 @@ export function SolarSystem(){
     comet_CO.add(comet_C)
     axes.add(comet_CO)
 
-
+    /// Asteroids ///
 
     /// LIGHT SOURCES ///
     let ambientLight = new THREE.AmbientLight(0x444444)
