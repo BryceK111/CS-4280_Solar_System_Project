@@ -121,6 +121,9 @@ export function SolarSystem(){
         'Io': texLoader.load('./images/Io.jpg', function(){
             renderer.render(scene, camera)
         }),
+        'jmoon1': texLoader.load('./images/jmoon1.jpg', function(){
+            renderer.render(scene, camera)
+        }),
         'jmoon2': texLoader.load('./images/jmoon2.jpg', function(){
             renderer.render(scene, camera)
         }),
@@ -143,6 +146,9 @@ export function SolarSystem(){
             renderer.render(scene, camera)
         }),
         'titania': texLoader.load('./images/titania.jpg', function(){
+            renderer.render(scene, camera)
+        }),
+        'titan': texLoader.load('./images/titan.jpg', function(){
             renderer.render(scene, camera)
         }),
         'umbriel': texLoader.load('./images/umbriel.jpg', function(){
@@ -380,7 +386,7 @@ export function SolarSystem(){
     let jupiter_moon_CO = []
     let jupiter_moon = []
     let jupiter_moon_speed = []
-    let jupiter_textures = ['bennu', 'callisto', 'europa', 'ganymede', 'Io', 'Io2', 'jmoon2', 'thebe', 'ceres', 'dione']
+    let jupiter_textures = ['bennu', 'callisto', 'europa', 'ganymede', 'Io', 'Io2', 'jmoon2', 'thebe', 'ceres', 'jmoon1']
     for (let i = 0; i < 95; i++) {
         let temp_moon = new THREE.Mesh(new THREE.SphereBufferGeometry(1, 20, 20), new THREE.MeshStandardMaterial())
         temp_moon.name = jupiter_textures[i%10]
@@ -455,7 +461,7 @@ export function SolarSystem(){
         saturn_moon[i].position.set(((saturn_size*9)*Math.random() + saturn_size + 20),0,0)
         let smoon_orbit = (((saturn_size + 10) * (saturn_size + 10) / (saturn_moon[i].position.x * saturn_moon[i].position.x)) * (earth_rotation / 16.0))
         saturn_moon_speed.push(smoon_orbit)
-        let smradius = 20*Math.random()
+        let smradius = 8*Math.random() //0.4*earth_size the size of Titan the largest moon of saturn
         saturn_moon[i].scale.set(smradius,smradius,smradius)
     }
 
