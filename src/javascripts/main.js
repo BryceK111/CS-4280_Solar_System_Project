@@ -649,42 +649,52 @@ export function SolarSystem(){
     /// Asteroids ///
     // let rx = 1500.0 * 10
     // let rz = 1500.0 * 2.5
-    let asteroids_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
-    asteroids_CO.name = 'obama'
-    asteroids_CO.material.map = textures[asteroids_CO.name]
+    let asteroid_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
+    asteroid_CO.name = 'obama'
+    asteroid_CO.material.map = textures[asteroid_CO.name]
 
-    let asteroids_C = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
-    asteroids_C.material.side = THREE.DoubleSide
-    asteroids_C.name = 'obama'
-    asteroids_C.material.map = textures[asteroids_C.name]
-    asteroids_C.position.set(mars_radius, 0, 0)
+    let asteroid_C = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
+    asteroid_C.material.side = THREE.DoubleSide
+    asteroid_C.name = 'obama'
+    asteroid_C.material.map = textures[asteroid_C.name]
+    //asteroid_C.position.set(0, 0, 0)
 
-    let asteroids = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1))
-    asteroids.name = 'obama'
-    asteroids.material.map = textures[asteroids.name]
+    let asteroid = new THREE.Mesh()
+    asteroid_C.add(asteroid)
+    asteroid_CO.add(asteroid_C)
+    axes.add(asteroid_CO)
+
     let ast_mtl = './models/asteroids/asteroids.mtl'
     let ast_obj = './models/asteroids/asteroids.obj'
 
-    var mtLoader = new MTLLoader();
-    mtLoader.load(ast_mtl,
-        function(materials) {
-            materials.preload()
 
-            var objLoader = new OBJLoader();
-            objLoader.setMaterials(materials)
-            objLoader.load(ast_obj,
-                function(object){
-                    object.name = 'asteroids'
-                    asteroids.add(object)
-                })
-        })
+    let asteroids = []
 
-    // aligns the asteroids with the z axis
-    asteroids_C.scale.set(10,10,10)
+    for (let i = 0; i < 300; i++) {
+        let temp_ass = asteroid.clone()
+        asteroids.push(temp_ass)
 
-    asteroids_C.add(asteroids)
-    asteroids_CO.add(asteroids_C)
-    axes.add(asteroids_CO)
+        var mtLoader = new MTLLoader();
+        mtLoader.load(ast_mtl,
+            function (materials) {
+                materials.preload()
+
+                var objLoader = new OBJLoader();
+                objLoader.setMaterials(materials)
+                objLoader.load(ast_obj,
+                    function (object) {
+                        object.name = 'asteroids'
+                        asteroids[i].add(object)
+                    })
+            })
+        let ass_radius = (((jupiter_radius-mars_radius-1000)*Math.random())+mars_radius+300);
+        let ass_theta = ass_radius * 2 * Math.PI
+
+        asteroids[i].position.set(ass_radius*Math.cos(ass_theta), Math.random(), ass_radius*Math.sin(ass_theta))
+        asteroids[i].scale.set(1000,1000,1000)
+        asteroids[i].rotation.y  = Math.random() * 2 * Math.PI
+        asteroid_C.add(asteroids[i])
+    }
 
     /// LIGHT SOURCES ///
     let ambientLight = new THREE.AmbientLight(0x444444)
