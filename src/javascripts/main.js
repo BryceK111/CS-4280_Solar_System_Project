@@ -157,9 +157,6 @@ export function SolarSystem(){
         'minecraft_moon': texLoader.load('./images/minecraft_moon.png', function(){
             renderer.render(scene, camera)
         })
-
-
-
     }
 
     /// OBJECT SIZE VARIABLES ///
@@ -647,11 +644,18 @@ export function SolarSystem(){
     pluto_CO.name = 'obama'
     pluto_CO.material.map = textures[pluto_CO.name]
 
+    texture = new THREE.TextureLoader().load('./images/fiveDollers.png')
+    let pluto_C = new THREE.Mesh(new THREE.PlaneGeometry(pluto_size * 2, pluto_size * 2))
+    pluto_C.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
+    pluto_C.position.set(pluto_radius, 0, 0)
+    pluto_CO.add(pluto_C)
+    pluto_C.material = new THREE.MeshBasicMaterial(neptune_ring.materialParams)
+    pluto_C.material.map = texture
+
     let pluto= new THREE.Mesh(new THREE.SphereBufferGeometry(pluto_size, 40, 40), new THREE.MeshStandardMaterial)
     pluto.name = 'pluto'
     pluto.material.map = textures[pluto.name]
-    pluto.position.set(pluto_radius, 0, 0)
-    pluto_CO.add(pluto)
+    pluto_C.add(pluto)
     axes.add(pluto_CO)
 
     let charon= new THREE.Mesh(new THREE.SphereBufferGeometry(pluto_size / 2, 40, 40), new THREE.MeshStandardMaterial)
@@ -783,6 +787,7 @@ export function SolarSystem(){
         planet: sun,
         orbital_radius: sun_radius,
         earth_model: "normal",
+        pluto_dlc: false,
         randomize: false
     }
 
@@ -1014,6 +1019,21 @@ export function SolarSystem(){
     }
     change_model()
 
+    function pluto_paid()
+    {
+        pluto_C.scale.set(.01,.01,.01)
+        pluto.scale.set(.0001,.0001,.0001)
+        if (controls.pluto_dlc)
+        {
+            pluto.scale.set(100,100,100)
+        }
+        else
+        {
+            pluto_C.scale.set(1,1,1)
+        }
+    }
+    pluto_paid()
+
     let gui = new dat.GUI()
     document.querySelector('aside').appendChild(gui.domElement)
     gui.add(controls, 'speed').min(.1).max(100.0)
@@ -1035,6 +1055,7 @@ export function SolarSystem(){
         "minecraft",
         "velociraptor"
     ]).onChange(change_model)
+    gui.add(controls,'pluto_dlc').onChange(pluto_paid)
 
 }
 SolarSystem()
