@@ -1056,6 +1056,7 @@ export function SolarSystem(){
         "velociraptor"
     ]).onChange(change_model)
     gui.add(controls,'pluto_dlc').onChange(pluto_paid)
+    gui.add(controls,'randomize').onChange(randomize)
 
 }
 SolarSystem()
