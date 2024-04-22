@@ -153,6 +153,9 @@ export function SolarSystem(){
         }),
         'umbriel': texLoader.load('./images/umbriel.jpg', function(){
             renderer.render(scene, camera)
+        }),
+        'minecraft_moon': texLoader.load('./images/minecraft_moon.png', function(){
+            renderer.render(scene, camera)
         })
 
 
@@ -310,6 +313,72 @@ export function SolarSystem(){
     moon_CO.add(moon)
     axes.add(earth_CO)
 
+    /// MEME REPRESENTATIONS OF EARTH ///
+
+    /// velociraptor earth
+    let velociraptor = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1))
+    velociraptor.name = 'obama'
+    velociraptor.material.map = textures[velociraptor.name]
+    earth.add(velociraptor)
+
+    let vel_mtl = './models/velociraptor/velociraptor.mtl'
+    let vel_obj = './models/velociraptor/velociraptor.obj'
+
+    var mtLoader = new MTLLoader();
+    mtLoader.load(vel_mtl,
+        function(materials) {
+            materials.preload()
+
+            var objLoader = new OBJLoader();
+            objLoader.setMaterials(materials)
+            objLoader.load(vel_obj,
+                function(object){
+                    object.name = 'comet'
+                    object.scale.set(.1,.1,.1)
+                    velociraptor.add(object)
+                })
+        })
+
+    /// minecraft earth
+    let minecraft = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1))
+    minecraft.name = 'obama'
+    minecraft.material.map = textures[minecraft.name]
+    earth.add(minecraft)
+
+    let mine_mtl = './models/Earth_Galacticraft/earth.mtl'
+    let mine_obj = './models/Earth_Galacticraft/earth.obj'
+
+    var mtLoader = new MTLLoader();
+    mtLoader.load(mine_mtl,
+        function(materials) {
+            materials.preload()
+
+            var objLoader = new OBJLoader();
+            objLoader.setMaterials(materials)
+            objLoader.load(mine_obj,
+                function(object){
+                    object.name = 'comet'
+                    object.position.set(0,-20,0)
+                    object.scale.set(10,10,10)
+                    minecraft.add(object)
+                })
+        })
+    /// minecraft moon
+    let mine_moon = new THREE.Mesh(new THREE.BoxBufferGeometry(moon_size + 1, moon_size + 1, moon_size + 1), new THREE.MeshBasicMaterial())
+    mine_moon.name = 'minecraft_moon'
+    mine_moon.material.map = textures[mine_moon.name]
+    moon.add(mine_moon)
+
+    /// flat earth
+    let texture = new THREE.TextureLoader().load('./images/flatEarth.png')
+    let flatEarth = new THREE.Mesh(new THREE.RingBufferGeometry(.00001, earth_size,40))
+    flatEarth.materialParams = { side: THREE.DoubleSide }
+    flatEarth.rotateX(Math.PI / 2)
+    earth.add(flatEarth)
+    flatEarth.material = new THREE.MeshPhongMaterial(flatEarth.materialParams)
+    flatEarth.material.map = texture
+
+
     /// MARS OBJECTS ///
     let mars_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     mars_CO.name = 'obama'
@@ -375,7 +444,7 @@ export function SolarSystem(){
     jupiter_CO.add(jupiter_C)
     axes.add(jupiter_CO)
 
-    let texture = new THREE.TextureLoader().load('./images/jupiter_ring.png')
+    texture = new THREE.TextureLoader().load('./images/jupiter_ring.png')
     let jupiter_ring = new THREE.Mesh(new THREE.PlaneGeometry(900, 900))
     jupiter_ring.materialParams = { side: THREE.DoubleSide, map: texture, transparent: true, blending: THREE.NormalBlending, depthTest: true, depthWrite: true }
     jupiter_ring.rotateX((90 - 3.13) * Math.PI / 180)
@@ -610,7 +679,7 @@ export function SolarSystem(){
     let cmt_mtl = './models/comet/Comet.mtl'
     let cmt_obj = './models/comet/Comet.obj'
 
-    var mtLoader = new MTLLoader();
+    mtLoader = new MTLLoader();
     mtLoader.load(cmt_mtl,
         function(materials) {
             materials.preload()
@@ -670,7 +739,7 @@ export function SolarSystem(){
 
     let asteroids = []
 
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 100; i++) {
         let temp_ass = asteroid.clone()
         asteroids.push(temp_ass)
 
@@ -713,6 +782,7 @@ export function SolarSystem(){
         snap_to: "Sun",
         planet: sun,
         orbital_radius: sun_radius,
+        earth_model: "normal",
         randomize: false
     }
 
@@ -913,6 +983,37 @@ export function SolarSystem(){
         camera.position.set(-1000, 1000, -1000)
     }
 
+    function change_model()
+    {
+        earth.scale.set(.001,.001,.001)
+        flatEarth.scale.set(.01,.01,.01)
+        minecraft.scale.set(.01,.01,.01)
+        velociraptor.scale.set(.01,.01,.01)
+        mine_moon.scale.set(.01,.01,.01)
+        if(controls.earth_model === "normal")
+        {
+            earth.scale.set(1,1,1)
+        }
+        else if(controls.earth_model === "flat")
+        {
+            flatEarth.scale.set(1000,1000,1000)
+        }
+        else if(controls.earth_model === "minecraft")
+        {
+            minecraft.scale.set(1000,1000,1000)
+            mine_moon.scale.set(2,2,2)
+        }
+        else if(controls.earth_model === "velociraptor")
+        {
+            velociraptor.scale.set(1000,1000,1000)
+        }
+        else
+        {
+            earth.scale.set(1,1,1)
+        }
+    }
+    change_model()
+
     let gui = new dat.GUI()
     document.querySelector('aside').appendChild(gui.domElement)
     gui.add(controls, 'speed').min(.1).max(100.0)
@@ -928,6 +1029,12 @@ export function SolarSystem(){
         "Neptune",
         "Pluto"
     ]).onChange(change_snap)
+    gui.add(controls, 'earth_model', [
+        "normal",
+        "flat",
+        "minecraft",
+        "velociraptor"
+    ]).onChange(change_model)
 
 }
 SolarSystem()
