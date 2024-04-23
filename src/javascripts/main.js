@@ -731,7 +731,7 @@ export function SolarSystem(){
     let ast_obj = './models/asteroids/asteroids.obj'
 
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 300; i++) {
 
         var mtLoader = new MTLLoader();
         mtLoader.load(ast_mtl,
@@ -828,6 +828,9 @@ export function SolarSystem(){
 
         //comet
         comet_angle = Math.random() * 2 * Math.PI
+
+        //asteroid
+        asteroid_CO.rotation.y = Math.random() * 2 * Math.PI
     }
     randomize()
 
