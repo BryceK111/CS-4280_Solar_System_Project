@@ -236,10 +236,13 @@ export function SolarSystem(){
 
     // pluto and its moons
     let pluto_orbit = earth_rotation / 90560.0
-    let pluto_rotation = earth_rotation / 6
+    let pluto_rotation = earth_rotation / 6.0
 
     // comet
     let comet_angle = 0.0
+
+    // asteroids
+    let asteroid_orbit = earth_rotation / 1682.0
 
     /********************** Objects **********************/
     let sky = new THREE.Mesh(new THREE.SphereBufferGeometry(sky_size, 10, 10), new THREE.MeshBasicMaterial())
@@ -720,32 +723,15 @@ export function SolarSystem(){
     axes.add(comet_CO)
 
     /// Asteroids ///
-    // let rx = 1500.0 * 10
-    // let rz = 1500.0 * 2.5
     let asteroid_CO = new THREE.Mesh(new THREE.BoxBufferGeometry(.1, .1, .1), new THREE.MeshBasicMaterial())
     asteroid_CO.name = 'obama'
     asteroid_CO.material.map = textures[asteroid_CO.name]
-
-    let asteroid_C = new THREE.Mesh(new THREE.PlaneBufferGeometry(.1, .1), new THREE.MeshBasicMaterial())
-    asteroid_C.material.side = THREE.DoubleSide
-    asteroid_C.name = 'obama'
-    asteroid_C.material.map = textures[asteroid_C.name]
-    //asteroid_C.position.set(0, 0, 0)
-
-    let asteroid = new THREE.Mesh()
-    asteroid_C.add(asteroid)
-    asteroid_CO.add(asteroid_C)
-    axes.add(asteroid_CO)
 
     let ast_mtl = './models/asteroids/asteroids.mtl'
     let ast_obj = './models/asteroids/asteroids.obj'
 
 
-    let asteroids = []
-
     for (let i = 0; i < 100; i++) {
-        let temp_ass = asteroid.clone()
-        asteroids.push(temp_ass)
 
         var mtLoader = new MTLLoader();
         mtLoader.load(ast_mtl,
@@ -756,18 +742,17 @@ export function SolarSystem(){
                 objLoader.setMaterials(materials)
                 objLoader.load(ast_obj,
                     function (object) {
+                        let ass_radius = (((jupiter_radius-mars_radius-1000)*Math.random())+mars_radius+300);
+                        let ass_theta = ass_radius * 2 * Math.PI
                         object.name = 'asteroids'
-                        asteroids[i].add(object)
+                        object.position.set(ass_radius*Math.cos(ass_theta), Math.random(), ass_radius*Math.sin(ass_theta))
+                        object.scale.set(1000,1000,1000)
+                        object.rotation.y  = Math.random() * 2 * Math.PI
+                        asteroid_CO.add(object)
                     })
             })
-        let ass_radius = (((jupiter_radius-mars_radius-1000)*Math.random())+mars_radius+300);
-        let ass_theta = ass_radius * 2 * Math.PI
-
-        asteroids[i].position.set(ass_radius*Math.cos(ass_theta), Math.random(), ass_radius*Math.sin(ass_theta))
-        asteroids[i].scale.set(1000,1000,1000)
-        asteroids[i].rotation.y  = Math.random() * 2 * Math.PI
-        asteroid_C.add(asteroids[i])
     }
+    axes.add(asteroid_CO)
 
     /// LIGHT SOURCES ///
     let ambientLight = new THREE.AmbientLight(0x444444)
@@ -914,6 +899,8 @@ export function SolarSystem(){
         let x = rx * Math.sin(comet_angle - (Math.PI/2))
         let z = rz * Math.sin(comet_angle)
         comet_C.position.set(x,0,z)
+
+        asteroid_CO.rotation.y += asteroid_orbit * controls.speed
 
         // Camera Snap
         axes.position.x = controls.orbital_radius * Math.sin(controls.planet.rotation.y - (Math.PI / 2)) // cosine but faster
